@@ -40,6 +40,11 @@ namespace WtHud2
             return Equals(objAsParam);
         }
 
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
+
         public bool Equals(ParamDescription other)
         {
             if (other == null) return false;

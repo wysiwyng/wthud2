@@ -14,13 +14,21 @@ namespace WtTelemetry
 {
     public class Telemetry
     {
-        private static HttpClient client = new HttpClient();
+        private static HttpClient Client;
+
+        static Telemetry()
+        {
+            Client = new HttpClient
+            {
+                Timeout = TimeSpan.FromMilliseconds(100)
+            };
+        }
 
         public static async Task<Dictionary<string, string>> GetJson(string url)
         {
             try
             {
-                HttpResponseMessage resp = await client.GetAsync(url);
+                HttpResponseMessage resp = await Client.GetAsync(url);
                 resp.EnsureSuccessStatusCode();
                 var j = await resp.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<Dictionary<string, string>>(j);
