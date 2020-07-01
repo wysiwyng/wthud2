@@ -1,18 +1,49 @@
-﻿namespace wthud3
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace WtHud2
 {
     class ParamDescription
     {
-        public ParamDescription(string key, string desc, string unit, string fmt)
+        [JsonConstructor]
+        public ParamDescription(string name, string description, string unit, string format)
         {
-            Key = key;
-            Description = desc;
+            Name = name;
+            Description = description;
             Unit = unit;
-            Format = fmt;
+            Format = format;
         }
 
-        public string Key { get; }
+        public ParamDescription(string key)
+        {
+            Name = key;
+            Description = key;
+            Unit = "";
+            Format = "7:F1";
+        }
+
+        public string Name { get; private set; }
+        
         public string Description { get; set; }
+
+        [DefaultValue("")]
         public string Unit { get; set; }
+        
+        [DefaultValue("7:F1")]
         public string Format { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (!(obj is ParamDescription objAsParam)) return false;
+            return Equals(objAsParam);
+        }
+
+        public bool Equals(ParamDescription other)
+        {
+            if (other == null) return false;
+            return (this.Name.Equals(other.Name));
+        }
     }
 }

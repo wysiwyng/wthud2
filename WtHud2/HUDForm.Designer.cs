@@ -1,4 +1,4 @@
-﻿namespace wthud3
+﻿namespace WtHud2
 {
     partial class HUDForm
     {

@@ -1,4 +1,4 @@
-﻿namespace wthud3
+﻿namespace WtHud2
 {
     partial class ConfigForm
     {
@@ -39,6 +39,8 @@
             this.AvailableParamsLB = new System.Windows.Forms.ListBox();
             this.UpBtn = new System.Windows.Forms.Button();
             this.DnBtn = new System.Windows.Forms.Button();
+            this.SaveBtn = new System.Windows.Forms.Button();
+            this.LoadBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ActiveParamsDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPosSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.YPosSpinner)).BeginInit();
@@ -172,11 +174,33 @@
             this.DnBtn.UseVisualStyleBackColor = true;
             this.DnBtn.Click += new System.EventHandler(this.DnBtn_Click);
             // 
+            // SaveBtn
+            // 
+            this.SaveBtn.Location = new System.Drawing.Point(364, 550);
+            this.SaveBtn.Name = "SaveBtn";
+            this.SaveBtn.Size = new System.Drawing.Size(75, 23);
+            this.SaveBtn.TabIndex = 12;
+            this.SaveBtn.Text = "Save";
+            this.SaveBtn.UseVisualStyleBackColor = true;
+            this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
+            // 
+            // LoadBtn
+            // 
+            this.LoadBtn.Location = new System.Drawing.Point(445, 550);
+            this.LoadBtn.Name = "LoadBtn";
+            this.LoadBtn.Size = new System.Drawing.Size(75, 23);
+            this.LoadBtn.TabIndex = 13;
+            this.LoadBtn.Text = "Load";
+            this.LoadBtn.UseVisualStyleBackColor = true;
+            this.LoadBtn.Click += new System.EventHandler(this.LoadBtn_Click);
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1134, 779);
+            this.Controls.Add(this.LoadBtn);
+            this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.DnBtn);
             this.Controls.Add(this.UpBtn);
             this.Controls.Add(this.AvailableParamsLB);
@@ -211,6 +235,8 @@
         private System.Windows.Forms.ListBox AvailableParamsLB;
         private System.Windows.Forms.Button UpBtn;
         private System.Windows.Forms.Button DnBtn;
+        private System.Windows.Forms.Button SaveBtn;
+        private System.Windows.Forms.Button LoadBtn;
     }
 }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Net.Http;
+using System.Globalization;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -64,8 +65,11 @@ namespace WtTelemetry
             var valid = bool.Parse(obj["valid"]);
             if (valid)
             {
-                if (obj.ContainsKey("aviahorizon_pitch")) obj["aviahorizon_pitch"] = (-double.Parse(obj["aviahorizon_pitch"])).ToString();
-                if (obj.ContainsKey("aviahorizon_roll")) obj["aviahorizon_roll"] = (-double.Parse(obj["aviahorizon_roll"])).ToString();
+                if (obj.ContainsKey("aviahorizon_pitch")) 
+                    obj["aviahorizon_pitch"] = (-double.Parse(obj["aviahorizon_pitch"], CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture);
+                if (obj.ContainsKey("aviahorizon_roll")) 
+                    obj["aviahorizon_roll"] = (-double.Parse(obj["aviahorizon_roll"], CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture);
+                
                 obj["alt_m"] = FindAltitude(ref obj);
                 return obj;
             }

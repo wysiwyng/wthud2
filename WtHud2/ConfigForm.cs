@@ -9,9 +9,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 using WtTelemetry;
+using System.IO;
+using System.Reflection;
 
-namespace wthud3
+namespace WtHud2
 {
     public partial class ConfigForm : Form
     {
@@ -21,6 +24,9 @@ namespace wthud3
         private HUDForm hudForm = new HUDForm();
 
         private CancellationTokenSource tokenSource = new CancellationTokenSource();
+
+        private string currentCraftName = "";
+        private bool prevDataValid = false;
 
         public ConfigForm()
         {
@@ -37,15 +43,35 @@ namespace wthud3
 
                 if (obj != null)
                 {
+                    if (!prevDataValid)
+                    {
+                        prevDataValid = true;
+                        currentCraftName = obj["type"];
+                        SaveBtn.Enabled = true;
+                        LoadBtn.Enabled = true;
+
+                        //reload
+                        //load saved config
+                    }
+
                     foreach (ParamDescription item in activeParamsBs)
                     {
+                        if (!obj.ContainsKey(item.Name)) continue;
+
+                        var formatString = $"{{0,{item.Format}}}";
+
                         text += $"{item.Description,-6}";
-                        text += String.Format(CultureInfo.InvariantCulture, item.Format, double.Parse(obj[item.Key], CultureInfo.InvariantCulture));
-                        //text += double.Parse(obj[item.Key], CultureInfo.InvariantCulture).ToString(item.Format, CultureInfo.InvariantCulture);
+                        text += String.Format(CultureInfo.InvariantCulture, formatString, double.Parse(obj[item.Name], CultureInfo.InvariantCulture));
                         text += " " + item.Unit + "\n";
                     }
 
                     delay = 100;                    
+                } 
+                else
+                {
+                    prevDataValid = false;
+                    SaveBtn.Enabled = false;
+                    LoadBtn.Enabled = false;
                 }
 
                 hudForm.HUDLabel.Text = text;
@@ -74,12 +100,12 @@ namespace wthud3
             availableParamsBs.DataSource = typeof(ParamDescription);
 
             AvailableParamsLB.DataSource = availableParamsBs;
-            AvailableParamsLB.DisplayMember = "Key";
+            AvailableParamsLB.DisplayMember = "Name";
 
             _ = UpdateHud(tokenSource.Token);
         }
 
-        private async void ReloadBtn_Click(object sender, EventArgs e)
+        private async Task ReloadParams()
         {
             var obj = await Telemetry.GetFlightData();
 
@@ -88,8 +114,51 @@ namespace wthud3
 
             foreach (var item in obj)
             {
-                availableParamsBs.Add(new ParamDescription(item.Key, item.Key, "", "{0,7:F1}"));
+                availableParamsBs.Add(new ParamDescription(item.Key));
             }
+        }
+
+        private void LoadSavedConfig()
+        {
+            if (LoadSavedConfig(currentCraftName)) return;
+            if (LoadSavedConfig("default")) return;
+            MessageBox.Show("Default config not found, please check your installation!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private bool LoadSavedConfig(string craftName)
+        {
+            var fileName = $"{craftName}_hud.json";
+            var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var filePath = Path.Combine(exeDir, fileName);
+
+            if (!File.Exists(filePath)) return false;
+
+            var serializer = new JsonSerializer();
+            serializer.Formatting = Formatting.Indented;
+
+            List<ParamDescription> paramList;
+
+            using (var sr = new StreamReader(filePath))
+            using (var reader = new JsonTextReader(sr))
+            {
+                paramList = serializer.Deserialize<List<ParamDescription>>(reader);
+            }
+
+            foreach (var item in paramList)
+            {
+                activeParamsBs.Add(item);
+                if (availableParamsBs.Contains(item))
+                {
+                    availableParamsBs.Remove(item);
+                }
+            }
+
+            return true;
+        }
+
+        private void ReloadBtn_Click(object sender, EventArgs e)
+        {
+            _ = ReloadParams();
         }
 
         private void AddBtn_Click(object sender, EventArgs e)
@@ -138,6 +207,29 @@ namespace wthud3
         private void DnBtn_Click(object sender, EventArgs e)
         {
             MoveRow(1);
+        }
+
+        private void SaveBtn_Click(object sender, EventArgs e)
+        {
+            var paramList = activeParamsBs.List;
+
+            var fileName = $"{currentCraftName}_hud.json";
+            var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var filePath = Path.Combine(exeDir, fileName);
+
+            var serializer = new JsonSerializer();
+            serializer.Formatting = Formatting.Indented;
+
+            using (StreamWriter sw = new StreamWriter(filePath))
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                serializer.Serialize(writer, paramList);
+            }
+        }
+
+        private void LoadBtn_Click(object sender, EventArgs e)
+        {
+            LoadSavedConfig();
         }
     }
 }
