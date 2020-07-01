@@ -47,11 +47,11 @@ namespace WtHud2
                     {
                         prevDataValid = true;
                         currentCraftName = obj["type"];
+                        ReloadBtn.Enabled = true;
                         SaveBtn.Enabled = true;
                         LoadBtn.Enabled = true;
-
-                        //reload
-                        //load saved config
+                        await ReloadParams();
+                        LoadSavedConfig();
                     }
 
                     foreach (ParamDescription item in activeParamsBs)
@@ -70,11 +70,13 @@ namespace WtHud2
                 else
                 {
                     prevDataValid = false;
+                    ReloadBtn.Enabled = false;
                     SaveBtn.Enabled = false;
                     LoadBtn.Enabled = false;
                 }
 
                 hudForm.HUDLabel.Text = text;
+
                 Task waitTask = Task.Delay(delay, cancellationToken);
                 try
                 {
@@ -87,23 +89,7 @@ namespace WtHud2
             }
         }
 
-        private void ConfigForm_Load(object sender, EventArgs e)
-        {
-            hudForm.Show();
-            hudForm.SetDesktopLocation((int)XPosSpinner.Value, (int)YPosSpinner.Value);
-
-            activeParamsBs.DataSource = typeof(ParamDescription);
-
-            ActiveParamsDGV.DataSource = activeParamsBs;
-            ActiveParamsDGV.AutoGenerateColumns = true;
-
-            availableParamsBs.DataSource = typeof(ParamDescription);
-
-            AvailableParamsLB.DataSource = availableParamsBs;
-            AvailableParamsLB.DisplayMember = "Name";
-
-            _ = UpdateHud(tokenSource.Token);
-        }
+        #region GUI functions
 
         private async Task ReloadParams()
         {
@@ -118,6 +104,34 @@ namespace WtHud2
             }
         }
 
+        private void MoveRow(int amount)
+        {
+            var selectedIdx = ActiveParamsDGV.SelectedRows[0].Index;
+            var newIdx = selectedIdx + amount;
+
+            var item = activeParamsBs[selectedIdx];
+
+
+            if (newIdx < 0) newIdx = activeParamsBs.Count - 1;
+            if (newIdx >= activeParamsBs.Count) newIdx = 0;
+
+            activeParamsBs.RemoveAt(selectedIdx);
+            activeParamsBs.Insert(newIdx, item);
+
+            ActiveParamsDGV.Rows[newIdx].Selected = true;
+        }
+
+        #endregion
+
+        #region Config file handling
+
+        private string GetConfigFilePath(string craftName)
+        {
+            var fileName = $"{craftName}_hud.json";
+            var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            return Path.Combine(exeDir, "configs", fileName);
+        }
+
         private void LoadSavedConfig()
         {
             if (LoadSavedConfig(currentCraftName)) return;
@@ -127,9 +141,7 @@ namespace WtHud2
 
         private bool LoadSavedConfig(string craftName)
         {
-            var fileName = $"{craftName}_hud.json";
-            var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            var filePath = Path.Combine(exeDir, fileName);
+            var filePath = GetConfigFilePath(craftName);
 
             if (!File.Exists(filePath)) return false;
 
@@ -154,6 +166,56 @@ namespace WtHud2
             }
 
             return true;
+        }
+
+        private void SaveConfig(string craftName)
+        {
+            var paramList = activeParamsBs.List;
+
+            var filePath = GetConfigFilePath(craftName);
+
+            var serializer = new JsonSerializer
+            {
+                Formatting = Formatting.Indented
+            };
+
+            using (StreamWriter sw = new StreamWriter(filePath))
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                serializer.Serialize(writer, paramList);
+            }
+        }
+
+        #endregion
+
+        #region GUI Event Handlers
+
+        private void ConfigForm_Load(object sender, EventArgs e)
+        {
+            XPosSpinner.Value = Properties.Settings.Default.HudXPos;
+            YPosSpinner.Value = Properties.Settings.Default.HudYPos;
+
+            hudForm.Show();
+            hudForm.SetDesktopLocation((int)XPosSpinner.Value, (int)YPosSpinner.Value);
+
+            activeParamsBs.DataSource = typeof(ParamDescription);
+
+            ActiveParamsDGV.DataSource = activeParamsBs;
+            ActiveParamsDGV.AutoGenerateColumns = true;
+
+            availableParamsBs.DataSource = typeof(ParamDescription);
+
+            AvailableParamsLB.DataSource = availableParamsBs;
+            AvailableParamsLB.DisplayMember = "Name";
+
+            _ = UpdateHud(tokenSource.Token);
+        }
+
+        private void ConfigForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.HudXPos = (int)XPosSpinner.Value;
+            Properties.Settings.Default.HudYPos = (int)YPosSpinner.Value;
+            Properties.Settings.Default.Save();
         }
 
         private void ReloadBtn_Click(object sender, EventArgs e)
@@ -182,23 +244,6 @@ namespace WtHud2
             hudForm.SetDesktopLocation((int)XPosSpinner.Value, (int)YPosSpinner.Value);
         }
 
-        private void MoveRow(int amount)
-        {
-            var selectedIdx = ActiveParamsDGV.SelectedRows[0].Index;
-            var newIdx = selectedIdx + amount;
-
-            var item = activeParamsBs[selectedIdx];
-
-
-            if (newIdx < 0) newIdx = activeParamsBs.Count - 1;
-            if (newIdx >= activeParamsBs.Count) newIdx = 0;
-
-            activeParamsBs.RemoveAt(selectedIdx);
-            activeParamsBs.Insert(newIdx, item);
-
-            ActiveParamsDGV.Rows[newIdx].Selected = true;
-        }
-
         private void UpBtn_Click(object sender, EventArgs e)
         {
             MoveRow(-1);
@@ -211,25 +256,14 @@ namespace WtHud2
 
         private void SaveBtn_Click(object sender, EventArgs e)
         {
-            var paramList = activeParamsBs.List;
-
-            var fileName = $"{currentCraftName}_hud.json";
-            var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            var filePath = Path.Combine(exeDir, fileName);
-
-            var serializer = new JsonSerializer();
-            serializer.Formatting = Formatting.Indented;
-
-            using (StreamWriter sw = new StreamWriter(filePath))
-            using (JsonWriter writer = new JsonTextWriter(sw))
-            {
-                serializer.Serialize(writer, paramList);
-            }
+            SaveConfig(currentCraftName);
         }
 
         private void LoadBtn_Click(object sender, EventArgs e)
         {
             LoadSavedConfig();
         }
+
+        #endregion
     }
 }

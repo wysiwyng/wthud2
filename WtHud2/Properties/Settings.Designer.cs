@@ -22,5 +22,29 @@ namespace WtHud2.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int HudXPos {
+            get {
+                return ((int)(this["HudXPos"]));
+            }
+            set {
+                this["HudXPos"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int HudYPos {
+            get {
+                return ((int)(this["HudYPos"]));
+            }
+            set {
+                this["HudYPos"] = value;
+            }
+        }
     }
 }
