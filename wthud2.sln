@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WtHud2", "WtHud2\WtHud2.csproj", "{9AB287FE-3301-460B-B7CC-F436B2389BCA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WtTelemetry", "WtTelemetry\WtTelemetry.csproj", "{A7DBD6DB-CE22-4FFE-A194-837EDCAB0CBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9AB287FE-3301-460B-B7CC-F436B2389BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AB287FE-3301-460B-B7CC-F436B2389BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AB287FE-3301-460B-B7CC-F436B2389BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AB287FE-3301-460B-B7CC-F436B2389BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7DBD6DB-CE22-4FFE-A194-837EDCAB0CBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7DBD6DB-CE22-4FFE-A194-837EDCAB0CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7DBD6DB-CE22-4FFE-A194-837EDCAB0CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7DBD6DB-CE22-4FFE-A194-837EDCAB0CBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {42322785-AB07-432C-9D24-4E1FC0D1CBCE}
+	EndGlobalSection
+EndGlobal
