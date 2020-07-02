@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace WtHud2
 {
@@ -24,12 +23,12 @@ namespace WtHud2
         }
 
         public string Name { get; private set; }
-        
+
         public string Description { get; set; }
 
         [DefaultValue("")]
         public string Unit { get; set; }
-        
+
         [DefaultValue("7:F1")]
         public string Format { get; set; }
 

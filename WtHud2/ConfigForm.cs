@@ -1,18 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Globalization;
-using System.Text;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 using WtTelemetry;
-using System.IO;
-using System.Reflection;
 
 namespace WtHud2
 {
@@ -65,8 +60,8 @@ namespace WtHud2
                         text += " " + item.Unit + "\n";
                     }
 
-                    delay = 100;                    
-                } 
+                    delay = 100;
+                }
                 else
                 {
                     prevDataValid = false;

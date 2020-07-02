@@ -1,14 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Net;
-using System.Net.Http;
 using System.Globalization;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Reflection;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace WtTelemetry
 {
@@ -43,14 +39,14 @@ namespace WtTelemetry
         {
             var name = obj["type"];
 
-            if (Constants.ImperialPlanes.Contains(name.Substring(0,2)))
+            if (Constants.ImperialPlanes.Contains(name.Substring(0, 2)))
             {
-                if (obj.ContainsKey("altitude_10k")) 
+                if (obj.ContainsKey("altitude_10k"))
                     return (double.Parse(obj["altitude_10k"]) * Constants.FtToM).ToString();
                 if (obj.ContainsKey("altitude_hour"))
                     return (double.Parse(obj["altitude_hour"]) * Constants.FtToM).ToString();
                 if (obj.ContainsKey("altitude_min"))
-                    return (double.Parse(obj["altitude_min"]) * Constants.FtToM).ToString();            
+                    return (double.Parse(obj["altitude_min"]) * Constants.FtToM).ToString();
             }
             else
             {
@@ -59,7 +55,7 @@ namespace WtTelemetry
                 if (obj.ContainsKey("altitude_hour"))
                     return obj["altitude_hour"];
                 if (obj.ContainsKey("altitude_min"))
-                    return obj["altitude_min"];                
+                    return obj["altitude_min"];
             }
 
             return "0.0";
@@ -73,11 +69,11 @@ namespace WtTelemetry
             var valid = bool.Parse(obj["valid"]);
             if (valid)
             {
-                if (obj.ContainsKey("aviahorizon_pitch")) 
+                if (obj.ContainsKey("aviahorizon_pitch"))
                     obj["aviahorizon_pitch"] = (-double.Parse(obj["aviahorizon_pitch"], CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture);
-                if (obj.ContainsKey("aviahorizon_roll")) 
+                if (obj.ContainsKey("aviahorizon_roll"))
                     obj["aviahorizon_roll"] = (-double.Parse(obj["aviahorizon_roll"], CultureInfo.InvariantCulture)).ToString(CultureInfo.InvariantCulture);
-                
+
                 obj["alt_m"] = FindAltitude(ref obj);
                 return obj;
             }

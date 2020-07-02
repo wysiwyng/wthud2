@@ -16,7 +16,7 @@
         public static readonly string[] ImperialPlanes = { "p-", "f-", "f2", "f3", "f4", "f6", "f7", "f8", "f9", "os",
             "sb", "tb", "a-", "pb", "am", "ad", "fj", "b-", "xp", "bt",
             "xa", "xf", "sp", "hu", "ty", "fi", "gl", "ni", "fu", "fu",
-            "se", "bl", "be", "su", "te", "st", "mo", "we", "ha" 
+            "se", "bl", "be", "su", "te", "st", "mo", "we", "ha"
         };
     }
 }
