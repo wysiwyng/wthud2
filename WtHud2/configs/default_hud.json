@@ -24,6 +24,12 @@
     "Format": "7:F1"
   },
   {
+	"Name": "AoA, deg",
+	"Description": "AoA",
+	"Unit": "\u00b0",
+	"Format": "7:F1"
+},
+  {
     "Name": "aviahorizon_pitch",
     "Description": "PTCH",
     "Unit": "°",

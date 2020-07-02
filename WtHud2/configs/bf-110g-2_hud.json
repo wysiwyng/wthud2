@@ -1,0 +1,68 @@
+[
+    {
+        "Name": "aviahorizon_pitch",
+        "Description": "PTCH",
+        "Unit": "\u00b0",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "TAS, km/h",
+        "Description": "TAS",
+        "Unit": "km/h",
+        "Format": "7:F0"
+    },
+    {
+        "Name": "M",
+        "Description": "MACH",
+        "Unit": "",
+        "Format": "7:F2"
+    },
+    {
+        "Name": "AoA, deg",
+        "Description": "AoA",
+        "Unit": "\u00b0",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "Vy, m/s",
+        "Description": "VS",
+        "Unit": "m/s",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "power 1, hp",
+        "Description": "PWR 1",
+        "Unit": "hp",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "RPM 1",
+        "Description": "RPM 1",
+        "Unit": "1/s",
+        "Format": "7:F0"
+    },
+    {
+        "Name": "efficiency 1, %",
+        "Description": "EFF 1",
+        "Unit": "%",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "power 2, hp",
+        "Description": "PWR 2",
+        "Unit": "hp",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "RPM 2",
+        "Description": "RPM 2",
+        "Unit": "1/s",
+        "Format": "7:F0"
+    },
+    {
+        "Name": "efficiency 2, %",
+        "Description": "EFF 2",
+        "Unit": "%",
+        "Format": "7:F1"
+    }
+]

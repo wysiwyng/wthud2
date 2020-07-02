@@ -1,0 +1,68 @@
+[
+    {
+        "Name": "aviahorizon_pitch",
+        "Description": "PTCH",
+        "Unit": "\u00b0",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "TAS, km/h",
+        "Description": "TAS",
+        "Unit": "km/h",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "Vy, m/s",
+        "Description": "VS",
+        "Unit": "m/s",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "RPM 1",
+        "Description": "RPM1",
+        "Unit": "1/s",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "thrust 1, kgs",
+        "Description": "THRUST1",
+        "Unit": "kgs",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "RPM 2",
+        "Description": "RPM2",
+        "Unit": "1/s",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "thrust 2, kgs",
+        "Description": "THRUST2",
+        "Unit": "kgs",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "RPM 3",
+        "Description": "RPM3",
+        "Unit": "1/s",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "thrust 3, kgs",
+        "Description": "THRUST3",
+        "Unit": "kgs",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "RPM 4",
+        "Description": "RPM4",
+        "Unit": "1/s",
+        "Format": "7:F1"
+    },
+    {
+        "Name": "thrust 4, kgs",
+        "Description": "THRUST4",
+        "Unit": "kgs",
+        "Format": "7:F1"
+    }
+]
