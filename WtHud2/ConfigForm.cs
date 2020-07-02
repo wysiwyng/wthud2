@@ -257,6 +257,25 @@ namespace WtHud2
         private void LoadBtn_Click(object sender, EventArgs e)
         {
             LoadSavedConfig();
+        }        
+
+        private void HUDFontBtn_Click(object sender, EventArgs e)
+        {
+            var dlg = new FontDialog
+            {
+                ShowColor = true,
+                ShowEffects = true,               
+                Font = hudForm.HUDLabel.Font,
+                Color = hudForm.HUDLabel.ForeColor
+            };
+
+            var result = dlg.ShowDialog();
+
+            hudForm.HUDLabel.Font = dlg.Font;
+            hudForm.HUDLabel.ForeColor = dlg.Color;
+
+            Properties.Settings.Default.HudTextFont = dlg.Font;
+            Properties.Settings.Default.HudTextColor = dlg.Color;
         }
 
         #endregion

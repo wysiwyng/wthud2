@@ -8,5 +8,11 @@
     <Setting Name="HudYPos" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">500</Value>
     </Setting>
+    <Setting Name="HudTextFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Courier New, 14.25pt, style=Bold</Value>
+    </Setting>
+    <Setting Name="HudTextColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

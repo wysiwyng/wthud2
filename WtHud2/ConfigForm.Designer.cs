@@ -44,6 +44,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.HUDFontBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ActiveParamsDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPosSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.YPosSpinner)).BeginInit();
@@ -60,20 +61,22 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ActiveParamsDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ActiveParamsDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ActiveParamsDGV.Location = new System.Drawing.Point(6, 21);
+            this.ActiveParamsDGV.Location = new System.Drawing.Point(4, 17);
+            this.ActiveParamsDGV.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ActiveParamsDGV.MultiSelect = false;
             this.ActiveParamsDGV.Name = "ActiveParamsDGV";
             this.ActiveParamsDGV.RowHeadersVisible = false;
             this.ActiveParamsDGV.RowHeadersWidth = 51;
             this.ActiveParamsDGV.RowTemplate.Height = 24;
             this.ActiveParamsDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ActiveParamsDGV.Size = new System.Drawing.Size(343, 515);
+            this.ActiveParamsDGV.Size = new System.Drawing.Size(296, 450);
             this.ActiveParamsDGV.TabIndex = 1;
             // 
             // ReloadBtn
             // 
             this.ReloadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ReloadBtn.Location = new System.Drawing.Point(6, 542);
+            this.ReloadBtn.Location = new System.Drawing.Point(4, 471);
+            this.ReloadBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ReloadBtn.Name = "ReloadBtn";
             this.ReloadBtn.Size = new System.Drawing.Size(75, 23);
             this.ReloadBtn.TabIndex = 2;
@@ -83,7 +86,8 @@
             // 
             // AddBtn
             // 
-            this.AddBtn.Location = new System.Drawing.Point(283, 99);
+            this.AddBtn.Location = new System.Drawing.Point(212, 80);
+            this.AddBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AddBtn.Name = "AddBtn";
             this.AddBtn.Size = new System.Drawing.Size(75, 23);
             this.AddBtn.TabIndex = 3;
@@ -93,7 +97,8 @@
             // 
             // RemBtn
             // 
-            this.RemBtn.Location = new System.Drawing.Point(283, 128);
+            this.RemBtn.Location = new System.Drawing.Point(212, 107);
+            this.RemBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RemBtn.Name = "RemBtn";
             this.RemBtn.Size = new System.Drawing.Size(75, 23);
             this.RemBtn.TabIndex = 4;
@@ -104,31 +109,34 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 23);
+            this.label1.Location = new System.Drawing.Point(4, 19);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(21, 17);
+            this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 5;
-            this.label1.Text = "X:";
+            this.label1.Text = "X Position:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 51);
+            this.label2.Location = new System.Drawing.Point(4, 42);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(21, 17);
+            this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Y:";
+            this.label2.Text = "Y Position:";
             // 
             // XPosSpinner
             // 
-            this.XPosSpinner.Location = new System.Drawing.Point(33, 21);
+            this.XPosSpinner.Location = new System.Drawing.Point(77, 17);
+            this.XPosSpinner.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.XPosSpinner.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.XPosSpinner.Name = "XPosSpinner";
-            this.XPosSpinner.Size = new System.Drawing.Size(75, 22);
+            this.XPosSpinner.Size = new System.Drawing.Size(56, 20);
             this.XPosSpinner.TabIndex = 7;
             this.XPosSpinner.Value = new decimal(new int[] {
             500,
@@ -139,14 +147,15 @@
             // 
             // YPosSpinner
             // 
-            this.YPosSpinner.Location = new System.Drawing.Point(33, 49);
+            this.YPosSpinner.Location = new System.Drawing.Point(77, 40);
+            this.YPosSpinner.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.YPosSpinner.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.YPosSpinner.Name = "YPosSpinner";
-            this.YPosSpinner.Size = new System.Drawing.Size(75, 22);
+            this.YPosSpinner.Size = new System.Drawing.Size(56, 20);
             this.YPosSpinner.TabIndex = 8;
             this.YPosSpinner.Value = new decimal(new int[] {
             500,
@@ -161,16 +170,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AvailableParamsLB.FormattingEnabled = true;
-            this.AvailableParamsLB.ItemHeight = 16;
-            this.AvailableParamsLB.Location = new System.Drawing.Point(6, 21);
+            this.AvailableParamsLB.Location = new System.Drawing.Point(4, 17);
+            this.AvailableParamsLB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AvailableParamsLB.Name = "AvailableParamsLB";
-            this.AvailableParamsLB.Size = new System.Drawing.Size(253, 500);
+            this.AvailableParamsLB.Size = new System.Drawing.Size(191, 433);
             this.AvailableParamsLB.TabIndex = 9;
             // 
             // UpBtn
             // 
             this.UpBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.UpBtn.Location = new System.Drawing.Point(355, 21);
+            this.UpBtn.Location = new System.Drawing.Point(304, 17);
+            this.UpBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.UpBtn.Name = "UpBtn";
             this.UpBtn.Size = new System.Drawing.Size(75, 23);
             this.UpBtn.TabIndex = 10;
@@ -181,7 +191,8 @@
             // DnBtn
             // 
             this.DnBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DnBtn.Location = new System.Drawing.Point(355, 513);
+            this.DnBtn.Location = new System.Drawing.Point(304, 444);
+            this.DnBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.DnBtn.Name = "DnBtn";
             this.DnBtn.Size = new System.Drawing.Size(75, 23);
             this.DnBtn.TabIndex = 11;
@@ -192,7 +203,8 @@
             // SaveBtn
             // 
             this.SaveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.SaveBtn.Location = new System.Drawing.Point(6, 542);
+            this.SaveBtn.Location = new System.Drawing.Point(4, 471);
+            this.SaveBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveBtn.TabIndex = 12;
@@ -203,7 +215,8 @@
             // LoadBtn
             // 
             this.LoadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.LoadBtn.Location = new System.Drawing.Point(87, 542);
+            this.LoadBtn.Location = new System.Drawing.Point(83, 471);
+            this.LoadBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LoadBtn.Name = "LoadBtn";
             this.LoadBtn.Size = new System.Drawing.Size(75, 23);
             this.LoadBtn.TabIndex = 13;
@@ -217,9 +230,11 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.AvailableParamsLB);
             this.groupBox1.Controls.Add(this.ReloadBtn);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(9, 10);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(265, 571);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(199, 498);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Available Parameters";
@@ -234,9 +249,11 @@
             this.groupBox2.Controls.Add(this.LoadBtn);
             this.groupBox2.Controls.Add(this.DnBtn);
             this.groupBox2.Controls.Add(this.SaveBtn);
-            this.groupBox2.Location = new System.Drawing.Point(364, 12);
+            this.groupBox2.Location = new System.Drawing.Point(291, 10);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(436, 571);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(383, 498);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Active Parameters";
@@ -245,28 +262,42 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.HUDFontBtn);
             this.groupBox3.Controls.Add(this.XPosSpinner);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.YPosSpinner);
-            this.groupBox3.Location = new System.Drawing.Point(12, 589);
+            this.groupBox3.Location = new System.Drawing.Point(9, 513);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(788, 132);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Size = new System.Drawing.Size(665, 107);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "HUD Appearance";
             // 
+            // HUDFontBtn
+            // 
+            this.HUDFontBtn.Location = new System.Drawing.Point(5, 65);
+            this.HUDFontBtn.Name = "HUDFontBtn";
+            this.HUDFontBtn.Size = new System.Drawing.Size(128, 23);
+            this.HUDFontBtn.TabIndex = 9;
+            this.HUDFontBtn.Text = "Change HUD Font...";
+            this.HUDFontBtn.UseVisualStyleBackColor = true;
+            this.HUDFontBtn.Click += new System.EventHandler(this.HUDFontBtn_Click);
+            // 
             // ConfigForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(812, 733);
+            this.ClientSize = new System.Drawing.Size(684, 636);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.RemBtn);
             this.Controls.Add(this.AddBtn);
-            this.MinimumSize = new System.Drawing.Size(830, 780);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MinimumSize = new System.Drawing.Size(700, 675);
             this.Name = "ConfigForm";
             this.Text = "WTHUD Config";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConfigForm_FormClosing);
@@ -299,6 +330,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button HUDFontBtn;
     }
 }
 

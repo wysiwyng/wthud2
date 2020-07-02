@@ -46,5 +46,29 @@ namespace WtHud2.Properties {
                 this["HudYPos"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Courier New, 14.25pt, style=Bold")]
+        public global::System.Drawing.Font HudTextFont {
+            get {
+                return ((global::System.Drawing.Font)(this["HudTextFont"]));
+            }
+            set {
+                this["HudTextFont"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color HudTextColor {
+            get {
+                return ((global::System.Drawing.Color)(this["HudTextColor"]));
+            }
+            set {
+                this["HudTextColor"] = value;
+            }
+        }
     }
 }
