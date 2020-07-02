@@ -71,7 +71,7 @@ namespace WtHud2
                         ReloadBtn.Enabled = false;
                         LoadBtn.Enabled = false;
                         CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkRed;
-                        availableParamsBs.Clear();
+                        //availableParamsBs.Clear();
                     }
 
                     hudForm.HUDLabel.Text = text;
@@ -99,6 +99,8 @@ namespace WtHud2
         private async Task ReloadParams()
         {
             var obj = await Telemetry.GetFlightData();
+
+            if (obj == null) return;
 
             activeParamsBs.Clear();
             availableParamsBs.Clear();
