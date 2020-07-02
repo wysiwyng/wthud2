@@ -33,12 +33,12 @@ You need .Net Framework 4.7.2, which should already be installed on your machine
 8. Change HUD position using X and Y spinboxes on the bottom of the config GUI
 
 ## Advanced Usage
-You can edit the HUD configurations manually, they are saved in a JSON format inside the [WtHud2/configs](configs) folder. You can also replace the default HUD by editing the corresponding [file](WtHud2/configs/default_hud.json).
+You can edit the HUD configurations manually, they are saved in a JSON format inside the [WtHud2/configs](WtHud2/configs) folder. You can also replace the default HUD by editing the corresponding [file](WtHud2/configs/default_hud.json).
 
 ## Implementation Details
 War Thunder exposes craft telemetry data on a web interface at ```localhost:8111``` during air battles. This data can be looked at on a second screen in a quite awkward GUI. This project aims to make the presented information more useful by overlaying select telemetry data directly on the game window, similarly to the already present (but limited) data.
 
-Data is collected from the in-game webserver and displayed on screen with a transparent, undecorated window. The data to be shown can be configured individually per aircraft, and is saved between sessions in json files residing inside the [WtHud2/configs](configs) folder.
+Data is collected from the in-game webserver and displayed on screen with a transparent, undecorated window. The data to be shown can be configured individually per aircraft, and is saved between sessions in json files residing inside the [WtHud2/configs](WtHud2/configs) folder.
 
 ## Usage Disclaimer
 This tool is neither sponsored, endorsed or otherwise approved by Gaijin Entertainment. It merely presents readily available data in a comfortable manner. Use at your own risk, at the time of writing similar tools were more or less "tolerated" when asked about on Gaijin's forums. No liability will be held by the authors should this and similar tools be the reason for the ban or termination of your War Thunder account.
