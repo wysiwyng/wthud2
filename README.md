@@ -1,6 +1,6 @@
 # WtHud2
 <a href="https://github.com/wysiwyng/wthud2/actions">
-    <img src="https://github.com/wysiwyng/wthud2/workflows/pyinstaller-win-dev/badge.svg" alt="pyinstaller-win-dev">
+    <img src="https://github.com/wysiwyng/wthud2/workflows/.NET%20msbuild%20Desktop/badge.svg" alt=".NET%20msbuild%20Desktop">
 </a>
 
 Head-up Display for additional War Thunder air battle data. Written in C#, uses data exposed by War Thunder on ```localhost:8111```. The shown data is configurable per aircraft. This is a continuation of my previous [HUD-for-War Thunder project](https://github.com/wysiwyng/wthud) using Windows Forms as a more appealing UI framework.
@@ -25,21 +25,20 @@ You need .Net Framework 4.7.2, which should already be installed on your machine
 3. Join an air battle or start a test flight
 4. All available telemetry data is loaded into the config screen once the match starts, also a basic minimal default HUD is loaded
 5. For custom per-aircraft configuration, change the parameters in the config UI:
-    - Checkbox enables a variable
-    - First text entry sets the display name in the HUD
-    - Second text entry sets a unit shown behind the data value
-    - Third text entry sets a format string for the data, see [here](https://docs.python.org/3/library/string.html#format-string-syntax)
-6. Save your custom configuration with the ```Save Config``` button
+    - Enable a parameter by selecting it in the left list and pressing the right arrow button
+    - Set description and unit in the right list
+    - Format sets justification and significant digits, see [here](https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings)
+6. Save your custom configuration with the ```Save``` button
 7. Once a new battle starts, wthud tries to load a saved HUD configuration for the new aircraft. If none is found, the default configuration is loaded
 8. Change HUD position using X and Y spinboxes on the bottom of the config GUI
 
 ## Advanced Usage
-You can edit the HUD configurations manually, they are saved in a JSON format inside the [configs](configs) folder. You can also replace the default HUD by editing the corresponding [file](configs/default_hud.json).
+You can edit the HUD configurations manually, they are saved in a JSON format inside the [WtHud2/configs](configs) folder. You can also replace the default HUD by editing the corresponding [file](WtHud2/configs/default_hud.json).
 
 ## Implementation Details
 War Thunder exposes craft telemetry data on a web interface at ```localhost:8111``` during air battles. This data can be looked at on a second screen in a quite awkward GUI. This project aims to make the presented information more useful by overlaying select telemetry data directly on the game window, similarly to the already present (but limited) data.
 
-Data is collected from the in-game webserver and displayed on screen with a transparent, undecorated window. The data to be shown can be configured individually per aircraft, and is saved between sessions in json files residing inside the [configs](configs) folder.
+Data is collected from the in-game webserver and displayed on screen with a transparent, undecorated window. The data to be shown can be configured individually per aircraft, and is saved between sessions in json files residing inside the [WtHud2/configs](configs) folder.
 
 ## Usage Disclaimer
 This tool is neither sponsored, endorsed or otherwise approved by Gaijin Entertainment. It merely presents readily available data in a comfortable manner. Use at your own risk, at the time of writing similar tools were more or less "tolerated" when asked about on Gaijin's forums. No liability will be held by the authors should this and similar tools be the reason for the ban or termination of your War Thunder account.
