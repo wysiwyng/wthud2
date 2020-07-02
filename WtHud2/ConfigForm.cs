@@ -30,57 +30,67 @@ namespace WtHud2
 
         private async Task UpdateHud(CancellationToken cancellationToken)
         {
-            while (true)
+            try
             {
-                var text = "";
-                var obj = await Telemetry.GetFlightData();
-                int delay = 1000;
-
-                if (obj != null)
+                while (true)
                 {
-                    if (!prevDataValid)
+                    var text = "";
+                    var obj = await Telemetry.GetFlightData();
+                    int delay = 1000;
+
+                    if (obj != null)
                     {
-                        prevDataValid = true;
-                        currentCraftName = obj["type"];
-                        ReloadBtn.Enabled = true;
-                        SaveBtn.Enabled = true;
-                        LoadBtn.Enabled = true;
-                        await ReloadParams();
-                        LoadSavedConfig();
+                        if (!prevDataValid)
+                        {
+                            prevDataValid = true;
+                            currentCraftName = obj["type"];
+                            CurrentCraftNameLbl.Text = currentCraftName;
+                            CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkGreen;
+                            ReloadBtn.Enabled = true;
+                            LoadBtn.Enabled = true;
+                            await ReloadParams();
+                            LoadSavedConfig();
+                        }
+
+                        foreach (ParamDescription item in activeParamsBs)
+                        {
+                            if (!obj.ContainsKey(item.Name)) continue;
+
+                            var formatString = $"{{0,{item.Format}}}";
+
+                            text += $"{item.Description,-6}";
+                            text += String.Format(CultureInfo.InvariantCulture, formatString, double.Parse(obj[item.Name], CultureInfo.InvariantCulture));
+                            text += " " + item.Unit + "\n";
+                        }
+
+                        delay = 100;
+                    }
+                    else
+                    {
+                        prevDataValid = false;
+                        ReloadBtn.Enabled = false;
+                        LoadBtn.Enabled = false;
+                        CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkRed;
+                        availableParamsBs.Clear();
                     }
 
-                    foreach (ParamDescription item in activeParamsBs)
+                    hudForm.HUDLabel.Text = text;
+
+                    Task waitTask = Task.Delay(delay, cancellationToken);
+                    try
                     {
-                        if (!obj.ContainsKey(item.Name)) continue;
-
-                        var formatString = $"{{0,{item.Format}}}";
-
-                        text += $"{item.Description,-6}";
-                        text += String.Format(CultureInfo.InvariantCulture, formatString, double.Parse(obj[item.Name], CultureInfo.InvariantCulture));
-                        text += " " + item.Unit + "\n";
+                        await waitTask;
                     }
+                    catch (TaskCanceledException)
+                    {
+                        return;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
 
-                    delay = 100;
-                }
-                else
-                {
-                    prevDataValid = false;
-                    ReloadBtn.Enabled = false;
-                    SaveBtn.Enabled = false;
-                    LoadBtn.Enabled = false;
-                }
-
-                hudForm.HUDLabel.Text = text;
-
-                Task waitTask = Task.Delay(delay, cancellationToken);
-                try
-                {
-                    await waitTask;
-                }
-                catch (TaskCanceledException)
-                {
-                    return;
-                }
+                throw;
             }
         }
 
@@ -160,6 +170,7 @@ namespace WtHud2
                 }
             }
 
+            ConfigNameLbl.Text = craftName + "_hud.json";
             return true;
         }
 
@@ -179,6 +190,8 @@ namespace WtHud2
             {
                 serializer.Serialize(writer, paramList);
             }
+
+            ConfigNameLbl.Text = craftName + "_hud.json";
         }
 
         #endregion
@@ -204,6 +217,40 @@ namespace WtHud2
             AvailableParamsLB.DisplayMember = "Name";
 
             _ = UpdateHud(tokenSource.Token);
+
+            availableParamsBs.ListChanged += AvailableParamsBs_ListChanged;
+            activeParamsBs.ListChanged += ActiveParamsBs_ListChanged;
+        }
+
+        private void ActiveParamsBs_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)
+        {
+            if (activeParamsBs.Count == 0)
+            {
+                UpBtn.Enabled = false;
+                DnBtn.Enabled = false;
+                RemBtn.Enabled = false;
+                SaveBtn.Enabled = false;
+            }
+            else
+            {
+                UpBtn.Enabled = true;
+                DnBtn.Enabled = true;
+                RemBtn.Enabled = true;
+                SaveBtn.Enabled = true;
+            }
+        }
+
+        private void AvailableParamsBs_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)
+        {
+            if (availableParamsBs.Count == 0)
+            {
+                AddBtn.Enabled = false;
+                RemBtn.Enabled = false;
+            }
+            else
+            {
+                AddBtn.Enabled = true;
+            }
         }
 
         private void ConfigForm_FormClosing(object sender, FormClosingEventArgs e)
