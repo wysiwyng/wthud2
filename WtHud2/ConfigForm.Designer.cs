@@ -374,7 +374,7 @@
             this.groupBox4.Controls.Add(this.LoggingEnableChkBox);
             this.groupBox4.Location = new System.Drawing.Point(215, 514);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(353, 92);
+            this.groupBox4.Size = new System.Drawing.Size(458, 92);
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Logging";
