@@ -33,7 +33,7 @@ jobs:
       run: msbuild $env:Solution_Name /p:Configuration=$env:Configuration
     
     - name: Zip the app objects
-      run: 7z a wthud2.zip \bin\Release\*
+      run: 7z a wthud2.zip .\bin\Release\*
     
     - name: Push to release
       uses: marvinpinto/action-automatic-releases@latest
