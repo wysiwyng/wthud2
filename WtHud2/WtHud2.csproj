@@ -154,4 +154,7 @@
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "$(TargetDir)\logs" mkdir "$(TargetDir)\logs"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

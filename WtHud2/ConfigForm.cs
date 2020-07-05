@@ -57,14 +57,23 @@ namespace WtHud2
                             LogShownRB.Enabled = false;
                             LogAllRB.Enabled = false;
 
+                            LogEntriesLbl.Text = "0";
+                            LogFileSizeLbl.Text = "0 kb";
+
                             await ReloadParams();
                             LoadSavedConfig();
 
                             if (LoggingEnableChkBox.Checked)
                             {                               
-                                var logFileName = currentCraftName + "_" + DateTime.Now.ToString("ddMMyy_hhmmss") + ".dat";                                
-                                LogWriter.StartNewLog(logFileName);
+                                var logFileName = currentCraftName + "_" + DateTime.Now.ToString("ddMMyy_hhmmss") + ".dat";
+                                var logFilePath = Path.Combine(GetLogFilePath(currentCraftName));
+                                LogWriter.StartNewLog(logFilePath);
                                 LogWriter.WriteHeader(ref paramIdToName);
+                                LogFileNameLbl.Text = logFileName;
+                            }
+                            else
+                            {
+                                LogFileNameLbl.Text = "Logging not active";
                             }
                         }
 
@@ -84,6 +93,9 @@ namespace WtHud2
                             }
 
                             LogWriter.AddRecord(ref loggingDict);
+
+                            LogEntriesLbl.Text = LogWriter.NumEntries.ToString();
+                            LogFileSizeLbl.Text = $"{LogWriter.FileSize / 1024} kb";
                         }                       
 
                         foreach (ParamDescription item in activeParamsBs)
@@ -175,6 +187,13 @@ namespace WtHud2
         #endregion
 
         #region Config file handling
+
+        private string GetLogFilePath(string craftName)
+        {
+            var fileName = $"{craftName}_{DateTime.Now:hhmmss_yyMMdd}_log.dat";
+            var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            return Path.Combine(exeDir, "logs", fileName);
+        }
 
         private string GetConfigFilePath(string craftName)
         {

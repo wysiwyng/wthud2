@@ -10,10 +10,21 @@ namespace WtLogging
         private static FileStream fs;
         private static BinaryWriter writer;
 
+        public static int NumEntries { get; private set; } = 0;
+
+        public static long FileSize
+        {
+            get
+            {
+                return fs.Position;
+            }
+        }
+
         public static void StartNewLog(string filename)
         {
             fs = new FileStream(filename, FileMode.Create);
             writer = new BinaryWriter(fs);
+            NumEntries = 0;
         }
 
         public static void WriteHeader(ref List<string> IdToName)
@@ -34,6 +45,7 @@ namespace WtLogging
                 writer.Write(item.Value);
             }
             _ = fs.FlushAsync();
+            NumEntries++;
         }
 
         public static void FinalizeLog()
