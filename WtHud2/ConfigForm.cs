@@ -7,7 +7,9 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.Serialization.Formatters.Binary;
 using WtTelemetry;
+using WtLogging;
 
 namespace WtHud2
 {
@@ -15,6 +17,8 @@ namespace WtHud2
     {
         private BindingSource activeParamsBs = new BindingSource();
         private BindingSource availableParamsBs = new BindingSource();
+
+        private List<string> paramIdToName = new List<string>();
 
         private HUDForm hudForm = new HUDForm();
 
@@ -29,7 +33,7 @@ namespace WtHud2
         }
 
         private async Task UpdateHud(CancellationToken cancellationToken)
-        {
+        {            
             try
             {
                 while (true)
@@ -38,19 +42,49 @@ namespace WtHud2
                     var obj = await Telemetry.GetFlightData();
                     int delay = 1000;
 
-                    if (obj != null)
+                    if (obj != null && obj["type"] != "dummy_plane")
                     {
                         if (!prevDataValid)
                         {
-                            prevDataValid = true;
                             currentCraftName = obj["type"];
+
+                            prevDataValid = true;                            
                             CurrentCraftNameLbl.Text = currentCraftName;
                             CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkGreen;
                             ReloadBtn.Enabled = true;
                             LoadBtn.Enabled = true;
+                            LoggingEnableChkBox.Enabled = false;
+                            LogShownRB.Enabled = false;
+                            LogAllRB.Enabled = false;
+
                             await ReloadParams();
                             LoadSavedConfig();
+
+                            if (LoggingEnableChkBox.Checked)
+                            {                               
+                                var logFileName = currentCraftName + "_" + DateTime.Now.ToString("ddMMyy_hhmmss") + ".dat";                                
+                                LogWriter.StartNewLog(logFileName);
+                                LogWriter.WriteHeader(ref paramIdToName);
+                            }
                         }
+
+                        if (LoggingEnableChkBox.Checked)
+                        {
+                            var loggingDict = new Dictionary<int, double>();
+
+                            int id = 0;
+                            foreach (var item in paramIdToName)
+                            {
+                                if ((activeParamsBs.Contains(new ParamDescription(item)) && LogShownRB.Checked) || LogAllRB.Checked)
+                                {
+                                    if (double.TryParse(obj[item], NumberStyles.Any, CultureInfo.InvariantCulture, out double value))
+                                        loggingDict.Add(id, value);
+                                }                                    
+                                id++;
+                            }
+
+                            LogWriter.AddRecord(ref loggingDict);
+                        }                       
 
                         foreach (ParamDescription item in activeParamsBs)
                         {
@@ -67,11 +101,19 @@ namespace WtHud2
                     }
                     else
                     {
-                        prevDataValid = false;
-                        ReloadBtn.Enabled = false;
-                        LoadBtn.Enabled = false;
-                        CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkRed;
-                        //availableParamsBs.Clear();
+                        if (prevDataValid)
+                        {
+                            LoggingEnableChkBox.Enabled = true;
+                            LogShownRB.Enabled = true;
+                            LogAllRB.Enabled = true;
+
+                            prevDataValid = false;
+                            ReloadBtn.Enabled = false;
+                            LoadBtn.Enabled = false;
+                            CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkRed;
+
+                            LogWriter.FinalizeLog();
+                        }
                     }
 
                     hudForm.HUDLabel.Text = text;
@@ -104,10 +146,12 @@ namespace WtHud2
 
             activeParamsBs.Clear();
             availableParamsBs.Clear();
+            paramIdToName.Clear();
 
             foreach (var item in obj)
             {
                 availableParamsBs.Add(new ParamDescription(item.Key));
+                paramIdToName.Add(item.Key);
             }
         }
 

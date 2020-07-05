@@ -49,12 +49,17 @@
             this.ConfigNameLbl = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.HUDFontBtn = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.LoggingEnableChkBox = new System.Windows.Forms.CheckBox();
+            this.LogAllRB = new System.Windows.Forms.RadioButton();
+            this.LogShownRB = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.ActiveParamsDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPosSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.YPosSpinner)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // ActiveParamsDGV
@@ -245,6 +250,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.AvailableParamsLB);
             this.groupBox1.Controls.Add(this.ReloadBtn);
             this.groupBox1.Location = new System.Drawing.Point(11, 11);
@@ -258,7 +265,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.CurrentCraftNameLbl);
             this.groupBox2.Controls.Add(this.label4);
@@ -326,7 +334,7 @@
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.YPosSpinner);
-            this.groupBox3.Location = new System.Drawing.Point(11, 513);
+            this.groupBox3.Location = new System.Drawing.Point(11, 514);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
@@ -345,18 +353,65 @@
             this.HUDFontBtn.UseVisualStyleBackColor = true;
             this.HUDFontBtn.Click += new System.EventHandler(this.HUDFontBtn_Click);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.LogShownRB);
+            this.groupBox4.Controls.Add(this.LogAllRB);
+            this.groupBox4.Controls.Add(this.LoggingEnableChkBox);
+            this.groupBox4.Location = new System.Drawing.Point(215, 514);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(127, 92);
+            this.groupBox4.TabIndex = 17;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Logging";
+            // 
+            // LoggingEnableChkBox
+            // 
+            this.LoggingEnableChkBox.AutoSize = true;
+            this.LoggingEnableChkBox.Location = new System.Drawing.Point(6, 18);
+            this.LoggingEnableChkBox.Name = "LoggingEnableChkBox";
+            this.LoggingEnableChkBox.Size = new System.Drawing.Size(65, 17);
+            this.LoggingEnableChkBox.TabIndex = 0;
+            this.LoggingEnableChkBox.Text = "Enabled";
+            this.LoggingEnableChkBox.UseVisualStyleBackColor = true;
+            // 
+            // LogAllRB
+            // 
+            this.LogAllRB.AutoSize = true;
+            this.LogAllRB.Location = new System.Drawing.Point(6, 40);
+            this.LogAllRB.Name = "LogAllRB";
+            this.LogAllRB.Size = new System.Drawing.Size(56, 17);
+            this.LogAllRB.TabIndex = 1;
+            this.LogAllRB.Text = "Log all";
+            this.LogAllRB.UseVisualStyleBackColor = true;
+            // 
+            // LogShownRB
+            // 
+            this.LogShownRB.AutoSize = true;
+            this.LogShownRB.Checked = true;
+            this.LogShownRB.Location = new System.Drawing.Point(6, 63);
+            this.LogShownRB.Name = "LogShownRB";
+            this.LogShownRB.Size = new System.Drawing.Size(99, 17);
+            this.LogShownRB.TabIndex = 2;
+            this.LogShownRB.TabStop = true;
+            this.LogShownRB.Text = "Log only shown";
+            this.LogShownRB.UseVisualStyleBackColor = true;
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 617);
+            this.ClientSize = new System.Drawing.Size(684, 618);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.RemBtn);
             this.Controls.Add(this.AddBtn);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(700, 656);
+            this.MinimumSize = new System.Drawing.Size(700, 657);
             this.Name = "ConfigForm";
             this.Text = "WTHUD Config";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConfigForm_FormClosing);
@@ -369,6 +424,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -395,6 +452,10 @@
         private System.Windows.Forms.Label ConfigNameLbl;
         private System.Windows.Forms.Label CurrentCraftNameLbl;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.RadioButton LogShownRB;
+        private System.Windows.Forms.RadioButton LogAllRB;
+        private System.Windows.Forms.CheckBox LoggingEnableChkBox;
     }
 }
 

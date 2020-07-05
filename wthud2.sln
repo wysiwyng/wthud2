@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WtHud2", "WtHud2\WtHud2.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WtTelemetry", "WtTelemetry\WtTelemetry.csproj", "{A7DBD6DB-CE22-4FFE-A194-837EDCAB0CBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogView", "LogView\LogView.csproj", "{ACAAC377-C196-4756-8DFE-7905FC032FA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WtLogging", "WtLogging\WtLogging.csproj", "{74006F67-1C28-4B69-8A8D-87C2D5B2517A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{A7DBD6DB-CE22-4FFE-A194-837EDCAB0CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7DBD6DB-CE22-4FFE-A194-837EDCAB0CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7DBD6DB-CE22-4FFE-A194-837EDCAB0CBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACAAC377-C196-4756-8DFE-7905FC032FA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACAAC377-C196-4756-8DFE-7905FC032FA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACAAC377-C196-4756-8DFE-7905FC032FA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACAAC377-C196-4756-8DFE-7905FC032FA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74006F67-1C28-4B69-8A8D-87C2D5B2517A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74006F67-1C28-4B69-8A8D-87C2D5B2517A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74006F67-1C28-4B69-8A8D-87C2D5B2517A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74006F67-1C28-4B69-8A8D-87C2D5B2517A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

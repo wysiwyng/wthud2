@@ -12,6 +12,9 @@
         public const string UrlMapObj = "http://" + IpAddress + ":8111/map_obj.json";
         public const string UrlMapInfo = "http://" + IpAddress + ":8111/map_info.json";
 
+        public const int UpdateIntervalActive = 100;
+        public const int UpdateIntervalIdle = 1000;
+
         public const double FtToM = 0.3048;
         public static readonly string[] ImperialPlanes = { "p-", "f-", "f2", "f3", "f4", "f6", "f7", "f8", "f9", "os",
             "sb", "tb", "a-", "pb", "am", "ad", "fj", "b-", "xp", "bt",
