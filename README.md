@@ -35,6 +35,9 @@ You need .Net Framework 4.7.2, which should already be installed on your machine
 ## Advanced Usage
 You can edit the HUD configurations manually, they are saved in a JSON format inside the [WtHud2/configs](WtHud2/configs) folder. You can also replace the default HUD by editing the corresponding [file](WtHud2/configs/default_hud.json).
 
+## Logging
+Flight telemetry can be logged by enabling the feature in the config GUI. Logging can only be turned on or off inbetween matches. The log files are saved as ```<craft_name>_<hhmmss>_<yyMMdd>_log.dat``` inside the ```logs``` subfolder. Data is logged in a custom binary format optimized for space and speed. For details, see the [WtLogging](WtLogging) library. A log viewer/converter is WIP.
+
 ## Implementation Details
 War Thunder exposes craft telemetry data on a web interface at ```localhost:8111``` during air battles. This data can be looked at on a second screen in a quite awkward GUI. This project aims to make the presented information more useful by overlaying select telemetry data directly on the game window, similarly to the already present (but limited) data.
 
@@ -50,8 +53,8 @@ Pull Requests and issues are welcome, expect a slow response as this project is 
 
 ## TODO / Future Features
 - [ ] Position shown items individually
-- [ ] Logging
-- [ ] Extension interface for calculated telemetry data (WIP)
+- [ ] Logging (WIP)
+- [ ] Extension interface for calculated telemetry data
 
 ## License
 This program is licensed under a GNU GPL v3 license, see [COPYING](COPYING) for details.
