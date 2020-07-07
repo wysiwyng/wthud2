@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace WtLogging
@@ -24,7 +22,7 @@ namespace WtLogging
                     IdToName.Add(reader.ReadString());
                 }
 
-                while(fs.Position < fs.Length)
+                while (fs.Position < fs.Length)
                 {
                     var recordLen = reader.ReadInt32();
                     var tempDict = new Dictionary<int, double>();

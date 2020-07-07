@@ -7,9 +7,8 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.Serialization.Formatters.Binary;
-using WtTelemetry;
 using WtLogging;
+using WtTelemetry;
 
 namespace WtHud2
 {
@@ -33,7 +32,7 @@ namespace WtHud2
         }
 
         private async Task UpdateHud(CancellationToken cancellationToken)
-        {            
+        {
             try
             {
                 while (true)
@@ -48,7 +47,7 @@ namespace WtHud2
                         {
                             currentCraftName = obj["type"];
 
-                            prevDataValid = true;                            
+                            prevDataValid = true;
                             CurrentCraftNameLbl.Text = currentCraftName;
                             CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkGreen;
                             ReloadBtn.Enabled = true;
@@ -64,7 +63,7 @@ namespace WtHud2
                             LoadSavedConfig();
 
                             if (LoggingEnableChkBox.Checked)
-                            {                               
+                            {
                                 var logFileName = $"{currentCraftName}_{DateTime.Now:hhmmss_yyMMdd}_log.dat";
                                 var logFilePath = Path.Combine(GetLogFilePath(currentCraftName));
                                 LogWriter.StartNewLog(logFilePath);
@@ -88,7 +87,7 @@ namespace WtHud2
                                 {
                                     if (double.TryParse(obj[item], NumberStyles.Any, CultureInfo.InvariantCulture, out double value))
                                         loggingDict.Add(id, value);
-                                }                                    
+                                }
                                 id++;
                             }
 
@@ -96,7 +95,7 @@ namespace WtHud2
 
                             LogEntriesLbl.Text = LogWriter.NumEntries.ToString();
                             LogFileSizeLbl.Text = $"{LogWriter.FileSize / 1024} kb";
-                        }                       
+                        }
 
                         foreach (ParamDescription item in activeParamsBs)
                         {
@@ -369,14 +368,14 @@ namespace WtHud2
         private void LoadBtn_Click(object sender, EventArgs e)
         {
             LoadSavedConfig();
-        }        
+        }
 
         private void HUDFontBtn_Click(object sender, EventArgs e)
         {
             var dlg = new FontDialog
             {
                 ShowColor = true,
-                ShowEffects = true,               
+                ShowEffects = true,
                 Font = hudForm.HUDLabel.Font,
                 Color = hudForm.HUDLabel.ForeColor
             };
