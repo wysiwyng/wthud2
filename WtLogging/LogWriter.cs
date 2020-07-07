@@ -3,7 +3,7 @@ using System.IO;
 
 namespace WtLogging
 {
-    public class LogWriter
+    public static class LogWriter
     {
         private static FileStream fs;
         private static BinaryWriter writer;

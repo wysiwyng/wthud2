@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WtTelemetry
 {
-    public class Telemetry
+    public static class Telemetry
     {
         private static HttpClient Client;
 

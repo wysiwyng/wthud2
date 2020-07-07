@@ -1,6 +1,6 @@
 ﻿namespace WtTelemetry
 {
-    public class Constants
+    public static class Constants
     {
         public const string IpAddress = "127.0.0.1";
 
