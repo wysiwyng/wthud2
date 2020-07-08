@@ -189,7 +189,7 @@ namespace WtHud2
 
         private string GetLogFilePath(string craftName)
         {
-            var fileName = $"{craftName}_{DateTime.Now:hhmmss_yyMMdd}_log.dat";
+            var fileName = $"{craftName}_{DateTime.Now:HHmmss_yyMMdd}_log.dat";
             var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             return Path.Combine(exeDir, "logs", fileName);
         }
