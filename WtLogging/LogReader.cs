@@ -16,6 +16,8 @@ namespace WtLogging
             LogTable.Clear();
             CraftName = "";
 
+            int pos = 0;
+
             using (var fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
             using (var reader = new BinaryReader(fs))
             {
@@ -35,7 +37,11 @@ namespace WtLogging
                 while (fs.Position < fs.Length)
                 {
                     var recordLen = reader.ReadInt32();
-                    //var tempDict = new Dictionary<int, double>();
+
+                    foreach (var item in LogTable)
+                    {
+                        item.Value.Add(double.NaN);
+                    }
 
                     for (var i = 0; i < recordLen; ++i)
                     {
@@ -43,11 +49,10 @@ namespace WtLogging
                         var paramVal = reader.ReadDouble();
                         var paramName = IdToName[paramId];
 
-                        LogTable[paramName].Add(paramVal);
-                        //tempDict.Add(paramId, paramVal);
+                        LogTable[paramName][pos] = paramVal;
                     }
 
-                    //Log.Add(tempDict);
+                    pos++;
                 }
             }
         }

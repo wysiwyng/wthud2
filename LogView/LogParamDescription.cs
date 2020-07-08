@@ -1,10 +1,6 @@
 ﻿using OxyPlot;
 using OxyPlot.Series;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WtTelemetry;
 
 namespace LogView
@@ -17,10 +13,14 @@ namespace LogView
             ParamName = paramName;
             Data = new LineSeries() { Title = paramName, ItemsSource = new List<DataPoint>() };
 
+            NumEntries = 0;
+
             double t = 0;
 
-            foreach(var item in data)
+            foreach (var item in data)
             {
+                if (!double.IsNaN(item)) NumEntries++;
+
                 var point = new DataPoint(t, item);
                 (Data.ItemsSource as List<DataPoint>).Add(point);
                 t += (double)Constants.UpdateIntervalActive / 1000;
@@ -31,12 +31,7 @@ namespace LogView
 
         public string ParamName { get; private set; }
 
-        public int NumEntries { 
-            get
-            {
-                return (Data.ItemsSource as List<DataPoint>).Count;
-            }
-        }
+        public int NumEntries { get; private set; }
 
         public LineSeries Data;
     }

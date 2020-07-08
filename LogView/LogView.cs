@@ -63,7 +63,7 @@ namespace LogView
 
             var changedIdx = e.NewIndex;
 
-            var selectedItem = (LogParamDescription) logDataBs[changedIdx];
+            var selectedItem = (LogParamDescription)logDataBs[changedIdx];
 
             if (selectedItem.Enabled)
             {
@@ -87,6 +87,11 @@ namespace LogView
         }
 
         private void PlotConfigDGV_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void ExportCSVBtn_Click(object sender, EventArgs e)
         {
 
         }
