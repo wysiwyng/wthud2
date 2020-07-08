@@ -8,13 +8,13 @@ namespace WtLogging
         public static List<string> IdToName = new List<string>();
         public static Dictionary<string, List<double>> LogTable = new Dictionary<string, List<double>>();
 
-        public static string craftName = "";
+        public static string CraftName = "";
 
         public static void ReadLog(string filename)
         {
             IdToName.Clear();
             LogTable.Clear();
-            craftName = "";
+            CraftName = "";
 
             using (var fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
             using (var reader = new BinaryReader(fs))
@@ -23,7 +23,7 @@ namespace WtLogging
                 if (logProtocolVersion != LoggingProperties.LogProtocolVersion)
                     throw new InvalidDataException("This log data is not supported by this version of LogView!");
 
-                craftName = reader.ReadString();
+                CraftName = reader.ReadString();
                 var headerLen = reader.ReadInt32();
                 for (var i = 0; i < headerLen; ++i)
                 {

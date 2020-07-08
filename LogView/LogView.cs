@@ -33,6 +33,8 @@ namespace LogView
             }
 
             pm.Series.Clear();
+            pm.Title = LogReader.CraftName;
+            pm.InvalidatePlot(true);
         }
 
         private void LogView_Load(object sender, EventArgs e)
@@ -45,13 +47,14 @@ namespace LogView
             PlotConfigDGV.AutoGenerateColumns = true;
 
             PlotConfigDGV.Columns[0].Width = 30;
+            PlotConfigDGV.Columns[2].Width = 80;
 
             logDataBs.ListChanged += LogDataBs_ListChanged;
 
             pm.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Title = "Time, s", MajorGridlineStyle = LineStyle.Solid });
             pm.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Value", MajorGridlineStyle = LineStyle.Solid });
 
-            plotView1.Model = pm;
+            TelemPlotView.Model = pm;
         }
 
         private void LogDataBs_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)

@@ -30,16 +30,17 @@
         {
             this.LoadLogBtn = new System.Windows.Forms.Button();
             this.PlotConfigDGV = new System.Windows.Forms.DataGridView();
-            this.plotView1 = new OxyPlot.WindowsForms.PlotView();
+            this.TelemPlotView = new OxyPlot.WindowsForms.PlotView();
             ((System.ComponentModel.ISupportInitialize)(this.PlotConfigDGV)).BeginInit();
             this.SuspendLayout();
             // 
             // LoadLogBtn
             // 
             this.LoadLogBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.LoadLogBtn.Location = new System.Drawing.Point(12, 415);
+            this.LoadLogBtn.Location = new System.Drawing.Point(16, 511);
+            this.LoadLogBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.LoadLogBtn.Name = "LoadLogBtn";
-            this.LoadLogBtn.Size = new System.Drawing.Size(75, 23);
+            this.LoadLogBtn.Size = new System.Drawing.Size(100, 28);
             this.LoadLogBtn.TabIndex = 0;
             this.LoadLogBtn.Text = "Load Log...";
             this.LoadLogBtn.UseVisualStyleBackColor = true;
@@ -54,37 +55,42 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.PlotConfigDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.PlotConfigDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.PlotConfigDGV.Location = new System.Drawing.Point(12, 12);
+            this.PlotConfigDGV.Location = new System.Drawing.Point(16, 15);
+            this.PlotConfigDGV.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.PlotConfigDGV.Name = "PlotConfigDGV";
             this.PlotConfigDGV.RowHeadersVisible = false;
-            this.PlotConfigDGV.Size = new System.Drawing.Size(202, 397);
+            this.PlotConfigDGV.RowHeadersWidth = 51;
+            this.PlotConfigDGV.Size = new System.Drawing.Size(325, 489);
             this.PlotConfigDGV.TabIndex = 3;
             this.PlotConfigDGV.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.PlotConfigDGV_CellMouseUp);
             this.PlotConfigDGV.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.PlotConfigDGV_CellValueChanged);
             // 
-            // plotView1
+            // TelemPlotView
             // 
-            this.plotView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.TelemPlotView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.plotView1.Location = new System.Drawing.Point(220, 12);
-            this.plotView1.Name = "plotView1";
-            this.plotView1.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.plotView1.Size = new System.Drawing.Size(568, 423);
-            this.plotView1.TabIndex = 4;
-            this.plotView1.Text = "plotView1";
-            this.plotView1.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
-            this.plotView1.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
-            this.plotView1.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            this.TelemPlotView.BackColor = System.Drawing.SystemColors.Control;
+            this.TelemPlotView.Location = new System.Drawing.Point(349, 15);
+            this.TelemPlotView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TelemPlotView.Name = "TelemPlotView";
+            this.TelemPlotView.PanCursor = System.Windows.Forms.Cursors.Hand;
+            this.TelemPlotView.Size = new System.Drawing.Size(701, 521);
+            this.TelemPlotView.TabIndex = 4;
+            this.TelemPlotView.Text = "plotView1";
+            this.TelemPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+            this.TelemPlotView.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.TelemPlotView.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
             // 
             // LogView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.plotView1);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.TelemPlotView);
             this.Controls.Add(this.PlotConfigDGV);
             this.Controls.Add(this.LoadLogBtn);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "LogView";
             this.Text = "WTHUD Log Viewer";
             this.Load += new System.EventHandler(this.LogView_Load);
@@ -97,7 +103,7 @@
 
         private System.Windows.Forms.Button LoadLogBtn;
         private System.Windows.Forms.DataGridView PlotConfigDGV;
-        private OxyPlot.WindowsForms.PlotView plotView1;
+        private OxyPlot.WindowsForms.PlotView TelemPlotView;
     }
 }
 
