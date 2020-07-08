@@ -59,6 +59,8 @@
             this.PlotConfigDGV.RowHeadersVisible = false;
             this.PlotConfigDGV.Size = new System.Drawing.Size(202, 397);
             this.PlotConfigDGV.TabIndex = 3;
+            this.PlotConfigDGV.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.PlotConfigDGV_CellMouseUp);
+            this.PlotConfigDGV.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.PlotConfigDGV_CellValueChanged);
             // 
             // plotView1
             // 

@@ -67,7 +67,7 @@ namespace WtHud2
                                 var logFileName = $"{currentCraftName}_{DateTime.Now:hhmmss_yyMMdd}_log.dat";
                                 var logFilePath = Path.Combine(GetLogFilePath(currentCraftName));
                                 LogWriter.StartNewLog(logFilePath);
-                                LogWriter.WriteHeader(ref paramIdToName);
+                                LogWriter.WriteHeader(currentCraftName, ref paramIdToName);
                                 LogFileNameLbl.Text = logFileName;
                             }
                             else

@@ -25,8 +25,10 @@ namespace WtLogging
             NumEntries = 0;
         }
 
-        public static void WriteHeader(ref List<string> IdToName)
+        public static void WriteHeader(string craftName, ref List<string> IdToName)
         {
+            writer.Write(LoggingProperties.LogProtocolVersion);
+            writer.Write(craftName);
             writer.Write(IdToName.Count);
             foreach (var item in IdToName)
             {

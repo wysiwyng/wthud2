@@ -72,6 +72,20 @@ namespace LogView
             }
 
             pm.InvalidatePlot(true);
+            //this.Invalidate();
+        }
+
+        private void PlotConfigDGV_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == 0 && e.RowIndex != -1)
+            {
+                PlotConfigDGV.EndEdit();
+            }
+        }
+
+        private void PlotConfigDGV_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
