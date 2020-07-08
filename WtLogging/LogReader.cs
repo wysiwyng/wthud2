@@ -9,14 +9,14 @@ namespace WtLogging
         public static Dictionary<string, List<double>> LogTable = new Dictionary<string, List<double>>();
 
         public static string CraftName = "";
+        public static int LogEntries = 0;
 
         public static void ReadLog(string filename)
         {
             IdToName.Clear();
             LogTable.Clear();
             CraftName = "";
-
-            int pos = 0;
+            LogEntries = 0;
 
             using (var fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
             using (var reader = new BinaryReader(fs))
@@ -49,10 +49,10 @@ namespace WtLogging
                         var paramVal = reader.ReadDouble();
                         var paramName = IdToName[paramId];
 
-                        LogTable[paramName][pos] = paramVal;
+                        LogTable[paramName][LogEntries] = paramVal;
                     }
 
-                    pos++;
+                    LogEntries++;
                 }
             }
         }
