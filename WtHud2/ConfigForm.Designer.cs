@@ -50,15 +50,15 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.HUDFontBtn = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.LogEntriesLbl = new System.Windows.Forms.Label();
+            this.LogFileSizeLbl = new System.Windows.Forms.Label();
+            this.LogFileNameLbl = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.LogShownRB = new System.Windows.Forms.RadioButton();
             this.LogAllRB = new System.Windows.Forms.RadioButton();
             this.LoggingEnableChkBox = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.LogFileNameLbl = new System.Windows.Forms.Label();
-            this.LogFileSizeLbl = new System.Windows.Forms.Label();
-            this.LogEntriesLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ActiveParamsDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPosSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.YPosSpinner)).BeginInit();
@@ -216,7 +216,7 @@
             // 
             // DnBtn
             // 
-            this.DnBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.DnBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DnBtn.Enabled = false;
             this.DnBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DnBtn.Location = new System.Drawing.Point(361, 235);
@@ -333,8 +333,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox3.Controls.Add(this.HUDFontBtn);
             this.groupBox3.Controls.Add(this.XPosSpinner);
             this.groupBox3.Controls.Add(this.label1);
@@ -379,6 +378,61 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Logging";
             // 
+            // LogEntriesLbl
+            // 
+            this.LogEntriesLbl.AutoSize = true;
+            this.LogEntriesLbl.Location = new System.Drawing.Point(202, 45);
+            this.LogEntriesLbl.Name = "LogEntriesLbl";
+            this.LogEntriesLbl.Size = new System.Drawing.Size(13, 13);
+            this.LogEntriesLbl.TabIndex = 8;
+            this.LogEntriesLbl.Text = "0";
+            // 
+            // LogFileSizeLbl
+            // 
+            this.LogFileSizeLbl.AutoSize = true;
+            this.LogFileSizeLbl.Location = new System.Drawing.Point(202, 32);
+            this.LogFileSizeLbl.Name = "LogFileSizeLbl";
+            this.LogFileSizeLbl.Size = new System.Drawing.Size(28, 13);
+            this.LogFileSizeLbl.TabIndex = 7;
+            this.LogFileSizeLbl.Text = "0 kb";
+            // 
+            // LogFileNameLbl
+            // 
+            this.LogFileNameLbl.AutoSize = true;
+            this.LogFileNameLbl.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LogFileNameLbl.Location = new System.Drawing.Point(202, 19);
+            this.LogFileNameLbl.Name = "LogFileNameLbl";
+            this.LogFileNameLbl.Size = new System.Drawing.Size(133, 14);
+            this.LogFileNameLbl.TabIndex = 6;
+            this.LogFileNameLbl.Text = "Logging not active";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(123, 19);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(55, 13);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "File name:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(123, 32);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(47, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "File size:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(123, 45);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(62, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Log entries:";
+            // 
             // LogShownRB
             // 
             this.LogShownRB.AutoSize = true;
@@ -410,61 +464,6 @@
             this.LoggingEnableChkBox.TabIndex = 0;
             this.LoggingEnableChkBox.Text = "Enabled";
             this.LoggingEnableChkBox.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(123, 45);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(62, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Log entries:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(123, 32);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 13);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "File size:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(123, 19);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(55, 13);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "File name:";
-            // 
-            // LogFileNameLbl
-            // 
-            this.LogFileNameLbl.AutoSize = true;
-            this.LogFileNameLbl.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogFileNameLbl.Location = new System.Drawing.Point(202, 19);
-            this.LogFileNameLbl.Name = "LogFileNameLbl";
-            this.LogFileNameLbl.Size = new System.Drawing.Size(133, 14);
-            this.LogFileNameLbl.TabIndex = 6;
-            this.LogFileNameLbl.Text = "Logging not active";
-            // 
-            // LogFileSizeLbl
-            // 
-            this.LogFileSizeLbl.AutoSize = true;
-            this.LogFileSizeLbl.Location = new System.Drawing.Point(202, 32);
-            this.LogFileSizeLbl.Name = "LogFileSizeLbl";
-            this.LogFileSizeLbl.Size = new System.Drawing.Size(28, 13);
-            this.LogFileSizeLbl.TabIndex = 7;
-            this.LogFileSizeLbl.Text = "0 kb";
-            // 
-            // LogEntriesLbl
-            // 
-            this.LogEntriesLbl.AutoSize = true;
-            this.LogEntriesLbl.Location = new System.Drawing.Point(202, 45);
-            this.LogEntriesLbl.Name = "LogEntriesLbl";
-            this.LogEntriesLbl.Size = new System.Drawing.Size(13, 13);
-            this.LogEntriesLbl.TabIndex = 8;
-            this.LogEntriesLbl.Text = "0";
             // 
             // ConfigForm
             // 
