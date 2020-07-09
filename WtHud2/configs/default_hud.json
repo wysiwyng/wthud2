@@ -38,7 +38,7 @@
   {
     "Name": "RPM 1",
     "Description": "RPM",
-    "Unit": "1/s",
+    "Unit": "1/min",
     "Format": "7:F0"
   },
   {
