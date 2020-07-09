@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace WtLogging
@@ -36,7 +37,7 @@ namespace WtLogging
             }
         }
 
-        public static void AddRecord(ref Dictionary<int, double> record)
+        public static void AddRecord(ref Dictionary<byte, float> record)
         {
             writer.Write(record.Count);
             foreach (var item in record)

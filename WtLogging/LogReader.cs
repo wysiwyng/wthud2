@@ -6,7 +6,7 @@ namespace WtLogging
     public static class LogReader
     {
         public static List<string> IdToName = new List<string>();
-        public static Dictionary<string, List<double>> LogTable = new Dictionary<string, List<double>>();
+        public static Dictionary<string, List<float>> LogTable = new Dictionary<string, List<float>>();
 
         public static string CraftName = "";
         public static int LogEntries = 0;
@@ -31,7 +31,7 @@ namespace WtLogging
                 {
                     var paramName = reader.ReadString();
                     IdToName.Add(paramName);
-                    LogTable[paramName] = new List<double>();
+                    LogTable[paramName] = new List<float>();
                 }
 
                 while (fs.Position < fs.Length)
@@ -40,13 +40,13 @@ namespace WtLogging
 
                     foreach (var item in LogTable)
                     {
-                        item.Value.Add(double.NaN);
+                        item.Value.Add(float.NaN);
                     }
 
                     for (var i = 0; i < recordLen; ++i)
                     {
-                        var paramId = reader.ReadInt32();
-                        var paramVal = reader.ReadDouble();
+                        var paramId = reader.ReadByte();
+                        var paramVal = reader.ReadSingle();
                         var paramName = IdToName[paramId];
 
                         LogTable[paramName][LogEntries] = paramVal;

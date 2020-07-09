@@ -7,7 +7,7 @@ namespace LogView
 {
     class LogParamDescription
     {
-        public LogParamDescription(string paramName, List<double> data)
+        public LogParamDescription(string paramName, List<float> data)
         {
             Enabled = false;
             ParamName = paramName;
@@ -19,7 +19,7 @@ namespace LogView
 
             foreach (var item in data)
             {
-                if (!double.IsNaN(item)) NumEntries++;
+                if (!float.IsNaN(item)) NumEntries++;
 
                 var point = new DataPoint(t, item);
                 (Data.ItemsSource as List<DataPoint>).Add(point);

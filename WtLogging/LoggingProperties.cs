@@ -2,6 +2,6 @@
 {
     static class LoggingProperties
     {
-        public const int LogProtocolVersion = 2;
+        public const int LogProtocolVersion = 3;
     }
 }
