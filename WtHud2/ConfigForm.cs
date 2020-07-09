@@ -78,14 +78,14 @@ namespace WtHud2
 
                         if (LoggingEnableChkBox.Checked)
                         {
-                            var loggingDict = new Dictionary<int, double>();
+                            var loggingDict = new Dictionary<byte, float>();
 
-                            int id = 0;
+                            byte id = 0;
                             foreach (var item in paramIdToName)
                             {
                                 if ((activeParamsBs.Contains(new ParamDescription(item)) && LogShownRB.Checked) || LogAllRB.Checked)
                                 {
-                                    if (double.TryParse(obj[item], NumberStyles.Any, CultureInfo.InvariantCulture, out double value))
+                                    if (float.TryParse(obj[item], NumberStyles.Any, CultureInfo.InvariantCulture, out float value))
                                         loggingDict.Add(id, value);
                                 }
                                 id++;
@@ -101,11 +101,20 @@ namespace WtHud2
                         {
                             if (!obj.ContainsKey(item.Name)) continue;
 
-                            var formatString = $"{{0,{item.Format}}}";
+                            try
+                            {
+                                var formatString = $"{{0,{item.Format}}}";
 
-                            text += $"{item.Description,-6}";
-                            text += String.Format(CultureInfo.InvariantCulture, formatString, double.Parse(obj[item.Name], CultureInfo.InvariantCulture));
-                            text += " " + item.Unit + "\n";
+                                var temp = $"{item.Description,-6}";
+                                temp += String.Format(CultureInfo.InvariantCulture, formatString, double.Parse(obj[item.Name], CultureInfo.InvariantCulture));
+                                temp += " " + item.Unit + "\n";
+
+                                text += temp;
+                            }
+                            catch (FormatException e)
+                            {
+                                text += $"{item.Description,-6} Bad format string\n";
+                            }
                         }
 
                         delay = 100;
@@ -365,8 +374,9 @@ namespace WtHud2
             SaveConfig(currentCraftName);
         }
 
-        private void LoadBtn_Click(object sender, EventArgs e)
+        private async void LoadBtn_Click(object sender, EventArgs e)
         {
+            await ReloadParams();
             LoadSavedConfig();
         }
 
