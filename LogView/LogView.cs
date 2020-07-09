@@ -21,6 +21,24 @@ namespace LogView
             InitializeComponent();
         }
 
+        private void LogView_Load(object sender, EventArgs e)
+        {
+            logDataBs.DataSource = typeof(LogParamDescription);
+
+            PlotConfigDGV.DataSource = logDataBs;
+            PlotConfigDGV.AutoGenerateColumns = true;
+
+            PlotConfigDGV.Columns[0].Width = 30;
+            PlotConfigDGV.Columns[2].Width = 80;
+
+            logDataBs.ListChanged += LogDataBs_ListChanged;
+
+            pm.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Title = "Time, s", MajorGridlineStyle = LineStyle.Solid });
+            pm.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Value", MajorGridlineStyle = LineStyle.Solid });
+
+            TelemPlotView.Model = pm;
+        }
+
         private void LoadLogBtn_Click(object sender, EventArgs e)
         {
             var dlg = new OpenFileDialog();
@@ -41,24 +59,6 @@ namespace LogView
             pm.Title = LogReader.CraftName;
             pm.InvalidatePlot(true);
             ExportCSVBtn.Enabled = true;
-        }
-
-        private void LogView_Load(object sender, EventArgs e)
-        {
-            logDataBs.DataSource = typeof(LogParamDescription);
-
-            PlotConfigDGV.DataSource = logDataBs;
-            PlotConfigDGV.AutoGenerateColumns = true;
-
-            PlotConfigDGV.Columns[0].Width = 30;
-            PlotConfigDGV.Columns[2].Width = 80;
-
-            logDataBs.ListChanged += LogDataBs_ListChanged;
-
-            pm.Axes.Add(new LinearAxis { Position = AxisPosition.Bottom, Title = "Time, s", MajorGridlineStyle = LineStyle.Solid });
-            pm.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Title = "Value", MajorGridlineStyle = LineStyle.Solid });
-
-            TelemPlotView.Model = pm;
         }
 
         private void LogDataBs_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)

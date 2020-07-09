@@ -33,127 +33,121 @@ namespace WtHud2
 
         private async Task UpdateHud(CancellationToken cancellationToken)
         {
-            try
+
+            while (true)
             {
-                while (true)
+                var text = "";
+                var obj = await Telemetry.GetFlightData();
+                int delay = 1000;
+
+                if (obj != null && obj["type"] != "dummy_plane")
                 {
-                    var text = "";
-                    var obj = await Telemetry.GetFlightData();
-                    int delay = 1000;
-
-                    if (obj != null && obj["type"] != "dummy_plane")
+                    if (!prevDataValid)
                     {
-                        if (!prevDataValid)
-                        {
-                            currentCraftName = obj["type"];
+                        currentCraftName = obj["type"];
 
-                            prevDataValid = true;
-                            CurrentCraftNameLbl.Text = currentCraftName;
-                            CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkGreen;
-                            ReloadBtn.Enabled = true;
-                            LoadBtn.Enabled = true;
-                            LoggingEnableChkBox.Enabled = false;
-                            LogShownRB.Enabled = false;
-                            LogAllRB.Enabled = false;
+                        prevDataValid = true;
+                        CurrentCraftNameLbl.Text = currentCraftName;
+                        CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkGreen;
+                        ReloadBtn.Enabled = true;
+                        LoadBtn.Enabled = true;
+                        LoggingEnableChkBox.Enabled = false;
+                        LogShownRB.Enabled = false;
+                        LogAllRB.Enabled = false;
 
-                            LogEntriesLbl.Text = "0";
-                            LogFileSizeLbl.Text = "0 kb";
+                        LogEntriesLbl.Text = "0";
+                        LogFileSizeLbl.Text = "0 kb";
 
-                            await ReloadParams();
-                            LoadSavedConfig();
-
-                            if (LoggingEnableChkBox.Checked)
-                            {
-                                var logFileName = $"{currentCraftName}_{DateTime.Now:HHmmss_yyMMdd}_log.dat";
-                                var logFilePath = Path.Combine(GetLogFilePath(currentCraftName));
-                                LogWriter.StartNewLog(logFilePath);
-                                LogWriter.WriteHeader(currentCraftName, ref paramIdToName);
-                                LogFileNameLbl.Text = logFileName;
-                            }
-                            else
-                            {
-                                LogFileNameLbl.Text = "Logging not active";
-                            }
-                        }
+                        await ReloadParams();
+                        LoadSavedConfig();
 
                         if (LoggingEnableChkBox.Checked)
                         {
-                            var loggingDict = new Dictionary<byte, float>();
-
-                            byte id = 0;
-                            foreach (var item in paramIdToName)
-                            {
-                                if ((activeParamsBs.Contains(new ParamDescription(item)) && LogShownRB.Checked) || LogAllRB.Checked)
-                                {
-                                    if (float.TryParse(obj[item], NumberStyles.Any, CultureInfo.InvariantCulture, out float value))
-                                        loggingDict.Add(id, value);
-                                }
-                                id++;
-                            }
-
-                            LogWriter.AddRecord(ref loggingDict);
-
-                            LogEntriesLbl.Text = LogWriter.NumEntries.ToString();
-                            LogFileSizeLbl.Text = $"{LogWriter.FileSize / 1024} kb";
+                            var logFileName = $"{currentCraftName}_{DateTime.Now:HHmmss_yyMMdd}_log.dat";
+                            var logFilePath = Path.Combine(GetLogFilePath(currentCraftName));
+                            LogWriter.StartNewLog(logFilePath);
+                            LogWriter.WriteHeader(currentCraftName, ref paramIdToName);
+                            LogFileNameLbl.Text = logFileName;
                         }
-
-                        foreach (ParamDescription item in activeParamsBs)
+                        else
                         {
-                            if (!obj.ContainsKey(item.Name)) continue;
-
-                            try
-                            {
-                                var formatString = $"{{0,{item.Format}}}";
-
-                                var temp = $"{item.Description,-6}";
-                                temp += String.Format(CultureInfo.InvariantCulture, formatString, double.Parse(obj[item.Name], CultureInfo.InvariantCulture));
-                                temp += " " + item.Unit + "\n";
-
-                                text += temp;
-                            }
-                            catch (FormatException e)
-                            {
-                                text += $"{item.Description,-6} Bad format string\n";
-                            }
+                            LogFileNameLbl.Text = "Logging not active";
                         }
-
-                        delay = 100;
                     }
-                    else
+
+                    if (LoggingEnableChkBox.Checked)
                     {
-                        if (prevDataValid)
+                        var loggingDict = new Dictionary<byte, float>();
+
+                        byte id = 0;
+                        foreach (var item in paramIdToName)
                         {
-                            LoggingEnableChkBox.Enabled = true;
-                            LogShownRB.Enabled = true;
-                            LogAllRB.Enabled = true;
+                            if ((activeParamsBs.Contains(new ParamDescription(item)) && LogShownRB.Checked) || LogAllRB.Checked)
+                            {
+                                if (float.TryParse(obj[item], NumberStyles.Any, CultureInfo.InvariantCulture, out float value))
+                                    loggingDict.Add(id, value);
+                            }
+                            id++;
+                        }
 
-                            prevDataValid = false;
-                            ReloadBtn.Enabled = false;
-                            LoadBtn.Enabled = false;
-                            CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkRed;
+                        LogWriter.AddRecord(ref loggingDict);
 
-                            LogWriter.FinalizeLog();
+                        LogEntriesLbl.Text = LogWriter.NumEntries.ToString();
+                        LogFileSizeLbl.Text = $"{LogWriter.FileSize / 1024} kb";
+                    }
+
+                    foreach (ParamDescription item in activeParamsBs)
+                    {
+                        if (!obj.ContainsKey(item.Name)) continue;
+
+                        try
+                        {
+                            var formatString = $"{{0,{item.Format}}}";
+
+                            var temp = $"{item.Description,-6}";
+                            temp += String.Format(CultureInfo.InvariantCulture, formatString, double.Parse(obj[item.Name], CultureInfo.InvariantCulture));
+                            temp += " " + item.Unit + "\n";
+
+                            text += temp;
+                        }
+                        catch (FormatException)
+                        {
+                            text += $"{item.Description,-6} Bad format string\n";
                         }
                     }
 
-                    hudForm.HUDLabel.Text = text;
+                    delay = 100;
+                }
+                else
+                {
+                    if (prevDataValid)
+                    {
+                        LoggingEnableChkBox.Enabled = true;
+                        LogShownRB.Enabled = true;
+                        LogAllRB.Enabled = true;
 
-                    Task waitTask = Task.Delay(delay, cancellationToken);
-                    try
-                    {
-                        await waitTask;
-                    }
-                    catch (TaskCanceledException)
-                    {
-                        return;
+                        prevDataValid = false;
+                        ReloadBtn.Enabled = false;
+                        LoadBtn.Enabled = false;
+                        CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkRed;
+
+                        LogWriter.FinalizeLog();
                     }
                 }
-            }
-            catch (Exception e)
-            {
 
-                throw;
+                hudForm.HUDLabel.Text = text;
+
+                Task waitTask = Task.Delay(delay, cancellationToken);
+                try
+                {
+                    await waitTask;
+                }
+                catch (TaskCanceledException)
+                {
+                    return;
+                }
             }
+
         }
 
         #region GUI functions
