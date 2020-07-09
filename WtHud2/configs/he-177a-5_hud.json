@@ -1,0 +1,62 @@
+[
+  {
+    "Name": "g_meter",
+    "Description": "G",
+    "Unit": "",
+    "Format": "7:F2"
+  },
+  {
+    "Name": "M",
+    "Description": "MACH",
+    "Unit": "",
+    "Format": "7:F2"
+  },
+  {
+    "Name": "TAS, km/h",
+    "Description": "TAS",
+    "Unit": "km/h",
+    "Format": "7:F0"
+  },
+  {
+    "Name": "Vy, m/s",
+    "Description": "Vy",
+    "Unit": "m/s",
+    "Format": "7:F1"
+  },
+  {
+    "Name": "AoA, deg",
+    "Description": "AoA",
+    "Unit": "°",
+    "Format": "7:F1"
+  },
+  {
+    "Name": "aviahorizon_pitch",
+    "Description": "PTCH",
+    "Unit": "°",
+    "Format": "7:F1"
+  },
+  {
+    "Name": "RPM 1",
+    "Description": "RPM1",
+    "Unit": "1/min",
+    "Format": "7:F0"
+  },
+  {
+    "Name": "power 1, hp",
+    "Description": "PWR1",
+    "Unit": "hp",
+    "Format": "7:F0"
+  },
+  {
+    "Name": "RPM 2",
+    "Description": "RPM2",
+    "Unit": "1/min",
+    "Format": "7:F0"
+  },
+  {
+    "Name": "power 2, hp",
+    "Description": "PWR2",
+    "Unit": "hp",
+    "Format": "7:F0"
+  }
+]
