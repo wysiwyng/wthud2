@@ -50,9 +50,6 @@ namespace WtHud2
                         CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkGreen;
                         ReloadBtn.Enabled = true;
                         LoadBtn.Enabled = true;
-                        LoggingEnableChkBox.Enabled = false;
-                        LogShownRB.Enabled = false;
-                        LogAllRB.Enabled = false;
 
                         LogEntriesLbl.Text = "0";
                         LogFileSizeLbl.Text = "0 kb";
@@ -62,11 +59,7 @@ namespace WtHud2
 
                         if (LoggingEnableChkBox.Checked)
                         {
-                            var logFileName = $"{currentCraftName}_{DateTime.Now:HHmmss_yyMMdd}_log.dat";
-                            var logFilePath = Path.Combine(GetLogFilePath(currentCraftName));
-                            LogWriter.StartNewLog(logFilePath);
-                            LogWriter.WriteHeader(currentCraftName, ref paramIdToName);
-                            LogFileNameLbl.Text = logFileName;
+                            StartLogging();
                         }
                         else
                         {
@@ -149,6 +142,19 @@ namespace WtHud2
 
         }
 
+        private void StartLogging()
+        {
+            var logFileName = $"{currentCraftName}_{DateTime.Now:HHmmss_yyMMdd}_log.dat";
+            var logFilePath = Path.Combine(GetLogFilePath(currentCraftName));
+            LogWriter.StartNewLog(logFilePath);
+            LogWriter.WriteHeader(currentCraftName, ref paramIdToName);
+            LogFileNameLbl.Text = logFileName;
+
+            LoggingEnableChkBox.Enabled = false;
+            LogShownRB.Enabled = false;
+            LogAllRB.Enabled = false;
+        }
+
         #region GUI functions
 
         private async Task ReloadParams()
@@ -192,7 +198,7 @@ namespace WtHud2
         {
             var fileName = $"{craftName}_{DateTime.Now:HHmmss_yyMMdd}_log.dat";
             var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            
+
             return Path.Combine(exeDir, "logs", fileName);
         }
 
@@ -200,7 +206,7 @@ namespace WtHud2
         {
             var fileName = $"{craftName}_hud.json";
             var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            
+
             return Path.Combine(exeDir, "configs", fileName);
         }
 
@@ -232,7 +238,7 @@ namespace WtHud2
             }
 
             foreach (var item in paramList)
-            {                
+            {
                 if (availableParamsBs.Contains(item))
                 {
                     availableParamsBs.Remove(item);
@@ -396,6 +402,14 @@ namespace WtHud2
 
                 Properties.Settings.Default.HudTextFont = dlg.Font;
                 Properties.Settings.Default.HudTextColor = dlg.Color;
+            }
+        }
+
+        private void LoggingEnableChkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (prevDataValid)
+            {
+                StartLogging();
             }
         }
 
