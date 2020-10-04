@@ -114,7 +114,6 @@ namespace WtHud2
                 {
                     if (prevDataValid)
                     {
-                        LoggingEnableChkBox.Enabled = true;
                         LogShownRB.Enabled = true;
                         LogAllRB.Enabled = true;
 
@@ -149,8 +148,7 @@ namespace WtHud2
             LogWriter.StartNewLog(logFilePath);
             LogWriter.WriteHeader(currentCraftName, ref paramIdToName);
             LogFileNameLbl.Text = logFileName;
-
-            LoggingEnableChkBox.Enabled = false;
+          
             LogShownRB.Enabled = false;
             LogAllRB.Enabled = false;
         }
@@ -407,9 +405,16 @@ namespace WtHud2
 
         private void LoggingEnableChkBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (prevDataValid)
+            if (LoggingEnableChkBox.Checked)
             {
-                StartLogging();
+                if (prevDataValid)
+                {
+                    StartLogging();
+                }
+            }
+            else
+            {
+                LogWriter.FinalizeLog();
             }
         }
 
