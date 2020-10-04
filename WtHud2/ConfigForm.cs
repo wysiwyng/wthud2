@@ -33,7 +33,6 @@ namespace WtHud2
 
         private async Task UpdateHud(CancellationToken cancellationToken)
         {
-
             while (true)
             {
                 var text = "";
@@ -176,7 +175,6 @@ namespace WtHud2
 
             var item = activeParamsBs[selectedIdx];
 
-
             if (newIdx < 0) newIdx = activeParamsBs.Count - 1;
             if (newIdx >= activeParamsBs.Count) newIdx = 0;
 
@@ -194,6 +192,7 @@ namespace WtHud2
         {
             var fileName = $"{craftName}_{DateTime.Now:HHmmss_yyMMdd}_log.dat";
             var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            
             return Path.Combine(exeDir, "logs", fileName);
         }
 
@@ -201,6 +200,7 @@ namespace WtHud2
         {
             var fileName = $"{craftName}_hud.json";
             var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            
             return Path.Combine(exeDir, "configs", fileName);
         }
 
@@ -208,6 +208,7 @@ namespace WtHud2
         {
             if (LoadSavedConfig(currentCraftName)) return;
             if (LoadSavedConfig("default")) return;
+
             MessageBox.Show("Default config not found, please check your installation!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -217,8 +218,10 @@ namespace WtHud2
 
             if (!File.Exists(filePath)) return false;
 
-            var serializer = new JsonSerializer();
-            serializer.Formatting = Formatting.Indented;
+            var serializer = new JsonSerializer
+            {
+                Formatting = Formatting.Indented
+            };
 
             List<ParamDescription> paramList;
 
@@ -229,11 +232,11 @@ namespace WtHud2
             }
 
             foreach (var item in paramList)
-            {
-                activeParamsBs.Add(item);
+            {                
                 if (availableParamsBs.Contains(item))
                 {
                     availableParamsBs.Remove(item);
+                    activeParamsBs.Add(item);
                 }
             }
 
@@ -386,11 +389,14 @@ namespace WtHud2
 
             var result = dlg.ShowDialog();
 
-            hudForm.HUDLabel.Font = dlg.Font;
-            hudForm.HUDLabel.ForeColor = dlg.Color;
+            if (result == DialogResult.OK)
+            {
+                hudForm.HUDLabel.Font = dlg.Font;
+                hudForm.HUDLabel.ForeColor = dlg.Color;
 
-            Properties.Settings.Default.HudTextFont = dlg.Font;
-            Properties.Settings.Default.HudTextColor = dlg.Color;
+                Properties.Settings.Default.HudTextFont = dlg.Font;
+                Properties.Settings.Default.HudTextColor = dlg.Color;
+            }
         }
 
         #endregion
