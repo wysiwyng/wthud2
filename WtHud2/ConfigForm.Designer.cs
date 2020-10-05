@@ -373,7 +373,7 @@
             this.groupBox4.Controls.Add(this.LoggingEnableChkBox);
             this.groupBox4.Location = new System.Drawing.Point(215, 514);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(458, 92);
+            this.groupBox4.Size = new System.Drawing.Size(458, 93);
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Logging";
@@ -464,6 +464,7 @@
             this.LoggingEnableChkBox.TabIndex = 0;
             this.LoggingEnableChkBox.Text = "Enabled";
             this.LoggingEnableChkBox.UseVisualStyleBackColor = true;
+            this.LoggingEnableChkBox.CheckedChanged += new System.EventHandler(this.LoggingEnableChkBox_CheckedChanged);
             // 
             // ConfigForm
             // 
