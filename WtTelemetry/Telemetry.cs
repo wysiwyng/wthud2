@@ -105,7 +105,7 @@ namespace WtTelemetry
 
             if (ind == null || state == null) return null;
 
-            if (bool.Parse(ind["valid"]) && bool.Parse(ind["valid"]))
+            if (bool.Parse(ind["valid"]) && bool.Parse(state["valid"]))
             {
                 var obj = ind.Concat(state).GroupBy(e => e.Key).ToDictionary(g => g.Key, g => g.First().Value);
                 return obj;
