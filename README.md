@@ -32,6 +32,8 @@ You need .Net Framework 4.7.2, which should already be installed on your machine
 7. Once a new battle starts, wthud tries to load a saved HUD configuration for the new aircraft. If none is found, the default configuration is loaded
 8. Change HUD position using X and Y spinboxes on the bottom of the config GUI
 
+If you want the actual font War Thunder uses for its HUD, you have to extract it from the game's files. Its name is "Default Normal", once you extract the font, install it on your system. You can then use the font within wthud in the font selection.
+
 ## Advanced Usage
 You can edit the HUD configurations manually, they are saved in a JSON format inside the [WtHud2/configs](WtHud2/configs) folder. You can also replace the default HUD by editing the corresponding [file](WtHud2/configs/default_hud.json).
 
