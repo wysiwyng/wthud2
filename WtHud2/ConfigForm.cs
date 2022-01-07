@@ -33,112 +33,118 @@ namespace WtHud2
 
         private async Task UpdateHud(CancellationToken cancellationToken)
         {
-            while (true)
+            try
             {
-                var text = "";
-                var obj = await Telemetry.GetFlightData();
-                int delay = 1000;
-
-                if (obj != null && obj["type"] != "dummy_plane")
+                while (true)
                 {
-                    if (!prevDataValid)
+                    var text = "";
+                    var obj = await Telemetry.GetFlightData();
+                    int delay = 1000;
+
+                    if (obj != null && obj["type"] != "dummy_plane")
                     {
-                        currentCraftName = obj["type"];
+                        if (!prevDataValid)
+                        {
+                            currentCraftName = obj["type"];
 
-                        prevDataValid = true;
-                        CurrentCraftNameLbl.Text = currentCraftName;
-                        CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkGreen;
-                        ReloadBtn.Enabled = true;
-                        LoadBtn.Enabled = true;
+                            prevDataValid = true;
+                            CurrentCraftNameLbl.Text = currentCraftName;
+                            CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkGreen;
+                            ReloadBtn.Enabled = true;
+                            LoadBtn.Enabled = true;
 
-                        LogEntriesLbl.Text = "0";
-                        LogFileSizeLbl.Text = "0 kb";
+                            LogEntriesLbl.Text = "0";
+                            LogFileSizeLbl.Text = "0 kb";
 
-                        await ReloadParams();
-                        LoadSavedConfig();
+                            await ReloadParams();
+                            LoadSavedConfig();
+
+                            if (LoggingEnableChkBox.Checked)
+                            {
+                                StartLogging();
+                            }
+                            else
+                            {
+                                LogFileNameLbl.Text = "Logging not active";
+                            }
+                        }
 
                         if (LoggingEnableChkBox.Checked)
                         {
-                            StartLogging();
-                        }
-                        else
-                        {
-                            LogFileNameLbl.Text = "Logging not active";
-                        }
-                    }
+                            var loggingDict = new Dictionary<byte, float>();
 
-                    if (LoggingEnableChkBox.Checked)
-                    {
-                        var loggingDict = new Dictionary<byte, float>();
-
-                        byte id = 0;
-                        foreach (var item in paramIdToName)
-                        {
-                            if ((activeParamsBs.Contains(new ParamDescription(item)) && LogShownRB.Checked) || LogAllRB.Checked)
+                            byte id = 0;
+                            foreach (var item in paramIdToName)
                             {
-                                if (float.TryParse(obj[item], NumberStyles.Any, CultureInfo.InvariantCulture, out float value))
-                                    loggingDict.Add(id, value);
+                                if ((activeParamsBs.Contains(new ParamDescription(item)) && LogShownRB.Checked) || LogAllRB.Checked)
+                                {
+                                    if (float.TryParse(obj[item], NumberStyles.Any, CultureInfo.InvariantCulture, out float value))
+                                        loggingDict.Add(id, value);
+                                }
+                                id++;
                             }
-                            id++;
+
+                            LogWriter.AddRecord(ref loggingDict);
+
+                            LogEntriesLbl.Text = LogWriter.NumEntries.ToString();
+                            LogFileSizeLbl.Text = $"{LogWriter.FileSize / 1024} kb";
                         }
 
-                        LogWriter.AddRecord(ref loggingDict);
-
-                        LogEntriesLbl.Text = LogWriter.NumEntries.ToString();
-                        LogFileSizeLbl.Text = $"{LogWriter.FileSize / 1024} kb";
-                    }
-
-                    foreach (ParamDescription item in activeParamsBs)
-                    {
-                        if (!obj.ContainsKey(item.Name)) continue;
-
-                        try
+                        foreach (ParamDescription item in activeParamsBs)
                         {
-                            var formatString = $"{{0,{item.Format}}}";
+                            if (!obj.ContainsKey(item.Name)) continue;
 
-                            var temp = $"{item.Description,-6}";
-                            temp += String.Format(CultureInfo.InvariantCulture, formatString, double.Parse(obj[item.Name], CultureInfo.InvariantCulture));
-                            temp += " " + item.Unit + "\n";
+                            try
+                            {
+                                var formatString = $"{{0,{item.Format}}}";
 
-                            text += temp;
+                                var temp = $"{item.Description,-6}";
+                                temp += String.Format(CultureInfo.InvariantCulture, formatString, double.Parse(obj[item.Name], CultureInfo.InvariantCulture));
+                                temp += " " + item.Unit + "\n";
+
+                                text += temp;
+                            }
+                            catch (FormatException)
+                            {
+                                text += $"{item.Description,-6} Bad format string\n";
+                            }
                         }
-                        catch (FormatException)
-                        {
-                            text += $"{item.Description,-6} Bad format string\n";
-                        }
+
+                        delay = Properties.Settings.Default.RefreshRate;
                     }
-
-                    delay = 100;
-                }
-                else
-                {
-                    if (prevDataValid)
+                    else
                     {
-                        LogShownRB.Enabled = true;
-                        LogAllRB.Enabled = true;
+                        if (prevDataValid)
+                        {
+                            LogShownRB.Enabled = true;
+                            LogAllRB.Enabled = true;
 
-                        prevDataValid = false;
-                        ReloadBtn.Enabled = false;
-                        LoadBtn.Enabled = false;
-                        CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkRed;
+                            prevDataValid = false;
+                            ReloadBtn.Enabled = false;
+                            LoadBtn.Enabled = false;
+                            CurrentCraftNameLbl.ForeColor = System.Drawing.Color.DarkRed;
 
-                        LogWriter.FinalizeLog();
+                            LogWriter.FinalizeLog();
+                        }
                     }
-                }
 
-                hudForm.HUDLabel.Text = text;
+                    hudForm.HUDLabel.Text = text;
 
-                Task waitTask = Task.Delay(delay, cancellationToken);
-                try
-                {
-                    await waitTask;
-                }
-                catch (TaskCanceledException)
-                {
-                    return;
+                    Task waitTask = Task.Delay(delay, cancellationToken);
+                    try
+                    {
+                        await waitTask;
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        return;
+                    }
                 }
             }
-
+            catch (Exception e)
+            {
+                MessageBox.Show("Hud update task exited!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void StartLogging()
@@ -274,8 +280,13 @@ namespace WtHud2
 
         private void ConfigForm_Load(object sender, EventArgs e)
         {
+            hudForm.HUDLabel.Font = Properties.Settings.Default.HudTextFont;
+            hudForm.HUDLabel.ForeColor = Properties.Settings.Default.HudTextColor;
+
             XPosSpinner.Value = Properties.Settings.Default.HudXPos;
             YPosSpinner.Value = Properties.Settings.Default.HudYPos;
+
+            RefreshRateSpinner.Value = Properties.Settings.Default.RefreshRate;
 
             hudForm.Show();
             hudForm.SetDesktopLocation((int)XPosSpinner.Value, (int)YPosSpinner.Value);
@@ -419,5 +430,10 @@ namespace WtHud2
         }
 
         #endregion
+
+        private void RefreshRateSpinner_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.RefreshRate = (int)RefreshRateSpinner.Value;
+        }
     }
 }

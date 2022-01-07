@@ -59,6 +59,8 @@
             this.LogShownRB = new System.Windows.Forms.RadioButton();
             this.LogAllRB = new System.Windows.Forms.RadioButton();
             this.LoggingEnableChkBox = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.RefreshRateSpinner = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.ActiveParamsDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.XPosSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.YPosSpinner)).BeginInit();
@@ -66,6 +68,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RefreshRateSpinner)).BeginInit();
             this.SuspendLayout();
             // 
             // ActiveParamsDGV
@@ -91,7 +94,7 @@
             // 
             this.ReloadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ReloadBtn.Enabled = false;
-            this.ReloadBtn.Location = new System.Drawing.Point(4, 471);
+            this.ReloadBtn.Location = new System.Drawing.Point(4, 446);
             this.ReloadBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ReloadBtn.Name = "ReloadBtn";
             this.ReloadBtn.Size = new System.Drawing.Size(75, 23);
@@ -197,7 +200,7 @@
             this.AvailableParamsLB.Location = new System.Drawing.Point(4, 17);
             this.AvailableParamsLB.Margin = new System.Windows.Forms.Padding(2);
             this.AvailableParamsLB.Name = "AvailableParamsLB";
-            this.AvailableParamsLB.Size = new System.Drawing.Size(191, 452);
+            this.AvailableParamsLB.Size = new System.Drawing.Size(191, 424);
             this.AvailableParamsLB.TabIndex = 9;
             // 
             // UpBtn
@@ -264,7 +267,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(199, 498);
+            this.groupBox1.Size = new System.Drawing.Size(199, 473);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Available Parameters";
@@ -466,11 +469,40 @@
             this.LoggingEnableChkBox.UseVisualStyleBackColor = true;
             this.LoggingEnableChkBox.CheckedChanged += new System.EventHandler(this.LoggingEnableChkBox_CheckedChanged);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 491);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(93, 13);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Update Rate [ms]:";
+            // 
+            // RefreshRateSpinner
+            // 
+            this.RefreshRateSpinner.Location = new System.Drawing.Point(111, 489);
+            this.RefreshRateSpinner.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.RefreshRateSpinner.Name = "RefreshRateSpinner";
+            this.RefreshRateSpinner.Size = new System.Drawing.Size(99, 20);
+            this.RefreshRateSpinner.TabIndex = 19;
+            this.RefreshRateSpinner.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.RefreshRateSpinner.ValueChanged += new System.EventHandler(this.RefreshRateSpinner_ValueChanged);
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 618);
+            this.Controls.Add(this.RefreshRateSpinner);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -493,7 +525,9 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RefreshRateSpinner)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -529,6 +563,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown RefreshRateSpinner;
     }
 }
 
