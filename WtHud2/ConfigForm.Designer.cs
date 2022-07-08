@@ -43,11 +43,13 @@
             this.LoadBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.OpenFolderBtn = new System.Windows.Forms.Button();
             this.CurrentCraftNameLbl = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.ConfigNameLbl = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.MoreColorsBtn = new System.Windows.Forms.Button();
             this.HUDFontBtn = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.LogEntriesLbl = new System.Windows.Forms.Label();
@@ -202,6 +204,7 @@
             this.AvailableParamsLB.Name = "AvailableParamsLB";
             this.AvailableParamsLB.Size = new System.Drawing.Size(191, 424);
             this.AvailableParamsLB.TabIndex = 9;
+            this.AvailableParamsLB.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.AvailableParamsLB_MouseDoubleClick);
             // 
             // UpBtn
             // 
@@ -277,6 +280,7 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.OpenFolderBtn);
             this.groupBox2.Controls.Add(this.CurrentCraftNameLbl);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
@@ -294,6 +298,18 @@
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Active Parameters";
+            // 
+            // OpenFolderBtn
+            // 
+            this.OpenFolderBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.OpenFolderBtn.Location = new System.Drawing.Point(167, 471);
+            this.OpenFolderBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.OpenFolderBtn.Name = "OpenFolderBtn";
+            this.OpenFolderBtn.Size = new System.Drawing.Size(75, 23);
+            this.OpenFolderBtn.TabIndex = 18;
+            this.OpenFolderBtn.Text = "Open folder";
+            this.OpenFolderBtn.UseVisualStyleBackColor = true;
+            this.OpenFolderBtn.Click += new System.EventHandler(this.OpenFolderBtn_Click);
             // 
             // CurrentCraftNameLbl
             // 
@@ -337,6 +353,7 @@
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox3.Controls.Add(this.MoreColorsBtn);
             this.groupBox3.Controls.Add(this.HUDFontBtn);
             this.groupBox3.Controls.Add(this.XPosSpinner);
             this.groupBox3.Controls.Add(this.label1);
@@ -351,13 +368,23 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "HUD Appearance";
             // 
+            // MoreColorsBtn
+            // 
+            this.MoreColorsBtn.Location = new System.Drawing.Point(124, 65);
+            this.MoreColorsBtn.Name = "MoreColorsBtn";
+            this.MoreColorsBtn.Size = new System.Drawing.Size(73, 23);
+            this.MoreColorsBtn.TabIndex = 10;
+            this.MoreColorsBtn.Text = "More colors";
+            this.MoreColorsBtn.UseVisualStyleBackColor = true;
+            this.MoreColorsBtn.Click += new System.EventHandler(this.HUDColorBtn_Click);
+            // 
             // HUDFontBtn
             // 
             this.HUDFontBtn.Location = new System.Drawing.Point(5, 65);
             this.HUDFontBtn.Name = "HUDFontBtn";
-            this.HUDFontBtn.Size = new System.Drawing.Size(128, 23);
+            this.HUDFontBtn.Size = new System.Drawing.Size(117, 23);
             this.HUDFontBtn.TabIndex = 9;
-            this.HUDFontBtn.Text = "Change HUD Font...";
+            this.HUDFontBtn.Text = "Change HUD Font";
             this.HUDFontBtn.UseVisualStyleBackColor = true;
             this.HUDFontBtn.Click += new System.EventHandler(this.HUDFontBtn_Click);
             // 
@@ -471,6 +498,7 @@
             // 
             // label8
             // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(12, 491);
             this.label8.Name = "label8";
@@ -480,6 +508,7 @@
             // 
             // RefreshRateSpinner
             // 
+            this.RefreshRateSpinner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.RefreshRateSpinner.Location = new System.Drawing.Point(111, 489);
             this.RefreshRateSpinner.Maximum = new decimal(new int[] {
             10000,
@@ -490,7 +519,7 @@
             this.RefreshRateSpinner.Size = new System.Drawing.Size(99, 20);
             this.RefreshRateSpinner.TabIndex = 19;
             this.RefreshRateSpinner.Value = new decimal(new int[] {
-            50,
+            70,
             0,
             0,
             0});
@@ -565,6 +594,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown RefreshRateSpinner;
+        private System.Windows.Forms.Button OpenFolderBtn;
+        private System.Windows.Forms.Button MoreColorsBtn;
     }
 }
 
