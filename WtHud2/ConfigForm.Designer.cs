@@ -370,9 +370,9 @@
             // 
             // MoreColorsBtn
             // 
-            this.MoreColorsBtn.Location = new System.Drawing.Point(101, 65);
+            this.MoreColorsBtn.Location = new System.Drawing.Point(102, 65);
             this.MoreColorsBtn.Name = "MoreColorsBtn";
-            this.MoreColorsBtn.Size = new System.Drawing.Size(90, 23);
+            this.MoreColorsBtn.Size = new System.Drawing.Size(92, 23);
             this.MoreColorsBtn.TabIndex = 10;
             this.MoreColorsBtn.Text = "HUD Color...";
             this.MoreColorsBtn.UseVisualStyleBackColor = true;
@@ -382,7 +382,7 @@
             // 
             this.HUDFontBtn.Location = new System.Drawing.Point(5, 65);
             this.HUDFontBtn.Name = "HUDFontBtn";
-            this.HUDFontBtn.Size = new System.Drawing.Size(90, 23);
+            this.HUDFontBtn.Size = new System.Drawing.Size(92, 23);
             this.HUDFontBtn.TabIndex = 9;
             this.HUDFontBtn.Text = "HUD Font...";
             this.HUDFontBtn.UseVisualStyleBackColor = true;
