@@ -36,6 +36,7 @@ jobs:
       run: 7z a wthud2.zip .\bin\Release\* README.md LICENSE
     
     - name: Push to release
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       uses: marvinpinto/action-automatic-releases@latest
       with:
          repo_token: "${{ secrets.GITHUB_TOKEN }}"
