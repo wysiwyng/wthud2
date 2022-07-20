@@ -403,7 +403,9 @@ namespace WtHud2
             int index = ActiveParamsDGV.SelectedRows[0].Index;
             ParamDescription selectedParam = (ParamDescription)ActiveParamsDGV.Rows[index].DataBoundItem;
 
-            availableParamsBs.Add(selectedParam);
+            if (!selectedParam.Name.Equals(separatorName))
+                availableParamsBs.Add(selectedParam);
+
             activeParamsBs.Remove(selectedParam);
 
             //select next, or last item in list, to be ready to next [<-] button click
