@@ -54,11 +54,12 @@
             this.Controls.Add(this.HUDLabel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "HUDForm";
             this.Text = "WTHUD OSD";
             this.TopMost = true;
             this.TransparencyKey = System.Drawing.SystemColors.ControlDarkDark;
+            this.Load += new System.EventHandler(this.HUDForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

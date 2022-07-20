@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +15,8 @@ namespace WtHud2
 {
     public partial class ConfigForm : Form
     {
+        private const string separatorName = "-SEPARATOR-";
+
         private BindingSource activeParamsBs = new BindingSource();
         private BindingSource availableParamsBs = new BindingSource();
 
@@ -37,8 +40,8 @@ namespace WtHud2
             {
                 while (true)
                 {
-                    var text = "";
-                    var obj = await Telemetry.GetFlightData();
+                    StringBuilder textsb = new StringBuilder();
+                    Dictionary<string, string> obj = await Telemetry.GetFlightData();
                     int delay = 1000;
 
                     if (obj != null && obj["type"] != "dummy_plane")
@@ -71,10 +74,10 @@ namespace WtHud2
 
                         if (LoggingEnableChkBox.Checked)
                         {
-                            var loggingDict = new Dictionary<byte, float>();
+                            Dictionary<byte, float> loggingDict = new Dictionary<byte, float>();
 
                             byte id = 0;
-                            foreach (var item in paramIdToName)
+                            foreach (string item in paramIdToName)
                             {
                                 if ((activeParamsBs.Contains(new ParamDescription(item)) && LogShownRB.Checked) || LogAllRB.Checked)
                                 {
@@ -92,21 +95,28 @@ namespace WtHud2
 
                         foreach (ParamDescription item in activeParamsBs)
                         {
-                            if (!obj.ContainsKey(item.Name)) continue;
+                            if (!obj.ContainsKey(item.Name))
+                            {
+                                if (item.Name.Equals(separatorName))
+                                    textsb.AppendLine();
+                                continue;
+                            }
 
                             try
-                            {
-                                var formatString = $"{{0,{item.Format}}}";
+                            {    
+                                string formatString = $"{{0,{item.Format}}}";
 
-                                var temp = $"{item.Description,-6}";
-                                temp += String.Format(CultureInfo.InvariantCulture, formatString, double.Parse(obj[item.Name], CultureInfo.InvariantCulture));
-                                temp += " " + item.Unit + "\n";
+                                string value = string.Format(CultureInfo.InvariantCulture, formatString, double.Parse(obj[item.Name], CultureInfo.InvariantCulture));
 
-                                text += temp;
+                                string line = string.Format(CultureInfo.InvariantCulture,
+                                    "{0, -6}{1} {2}", item.Description, value, item.Unit );
+
+                                textsb.AppendLine(line);
+
                             }
                             catch (FormatException)
                             {
-                                text += $"{item.Description,-6} Bad format string\n";
+                                textsb.AppendLine($"{item.Description,-6} Bad format string");
                             }
                         }
 
@@ -128,7 +138,7 @@ namespace WtHud2
                         }
                     }
 
-                    hudForm.HUDLabel.Text = text;
+                    hudForm.HUDLabel.Text = textsb.ToString();
 
                     Task waitTask = Task.Delay(delay, cancellationToken);
                     try
@@ -141,7 +151,7 @@ namespace WtHud2
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 MessageBox.Show("Hud update task exited!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -149,12 +159,12 @@ namespace WtHud2
 
         private void StartLogging()
         {
-            var logFileName = $"{currentCraftName}_{DateTime.Now:HHmmss_yyMMdd}_log.dat";
-            var logFilePath = Path.Combine(GetLogFilePath(currentCraftName));
+            string logFileName = $"{currentCraftName}_{DateTime.Now:HHmmss_yyMMdd}_log.dat";
+            string logFilePath = Path.Combine(GetLogFilePath(currentCraftName));
             LogWriter.StartNewLog(logFilePath);
             LogWriter.WriteHeader(currentCraftName, ref paramIdToName);
             LogFileNameLbl.Text = logFileName;
-          
+
             LogShownRB.Enabled = false;
             LogAllRB.Enabled = false;
         }
@@ -163,7 +173,7 @@ namespace WtHud2
 
         private async Task ReloadParams()
         {
-            var obj = await Telemetry.GetFlightData();
+            Dictionary<string, string> obj = await Telemetry.GetFlightData();
 
             if (obj == null) return;
 
@@ -171,7 +181,10 @@ namespace WtHud2
             availableParamsBs.Clear();
             paramIdToName.Clear();
 
-            foreach (var item in obj)
+
+            availableParamsBs.Add(new ParamDescription(separatorName, "", "", ""));
+
+            foreach (KeyValuePair<string, string> item in obj)
             {
                 availableParamsBs.Add(new ParamDescription(item.Key));
                 paramIdToName.Add(item.Key);
@@ -180,8 +193,8 @@ namespace WtHud2
 
         private void MoveRow(int amount)
         {
-            var selectedIdx = ActiveParamsDGV.SelectedRows[0].Index;
-            var newIdx = selectedIdx + amount;
+            int selectedIdx = ActiveParamsDGV.SelectedRows[0].Index;
+            int newIdx = selectedIdx + amount;
 
             var item = activeParamsBs[selectedIdx];
 
@@ -200,16 +213,16 @@ namespace WtHud2
 
         private string GetLogFilePath(string craftName)
         {
-            var fileName = $"{craftName}_{DateTime.Now:HHmmss_yyMMdd}_log.dat";
-            var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string fileName = $"{craftName}_{DateTime.Now:HHmmss_yyMMdd}_log.dat";
+            string exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             return Path.Combine(exeDir, "logs", fileName);
         }
 
         private string GetConfigFilePath(string craftName)
         {
-            var fileName = $"{craftName}_hud.json";
-            var exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string fileName = $"{craftName}_hud.json";
+            string exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             return Path.Combine(exeDir, "configs", fileName);
         }
@@ -224,24 +237,24 @@ namespace WtHud2
 
         private bool LoadSavedConfig(string craftName)
         {
-            var filePath = GetConfigFilePath(craftName);
+            string filePath = GetConfigFilePath(craftName);
 
             if (!File.Exists(filePath)) return false;
 
-            var serializer = new JsonSerializer
+            JsonSerializer serializer = new JsonSerializer
             {
                 Formatting = Formatting.Indented
             };
 
             List<ParamDescription> paramList;
 
-            using (var sr = new StreamReader(filePath))
-            using (var reader = new JsonTextReader(sr))
+            using (StreamReader sr = new StreamReader(filePath))
+            using (JsonTextReader reader = new JsonTextReader(sr))
             {
                 paramList = serializer.Deserialize<List<ParamDescription>>(reader);
             }
 
-            foreach (var item in paramList)
+            foreach (ParamDescription item in paramList)
             {
                 if (availableParamsBs.Contains(item))
                 {
@@ -258,9 +271,9 @@ namespace WtHud2
         {
             var paramList = activeParamsBs.List;
 
-            var filePath = GetConfigFilePath(craftName);
+            string filePath = GetConfigFilePath(craftName);
 
-            var serializer = new JsonSerializer
+            JsonSerializer serializer = new JsonSerializer
             {
                 Formatting = Formatting.Indented
             };
@@ -350,20 +363,52 @@ namespace WtHud2
             _ = ReloadParams();
         }
 
+
         private void AddBtn_Click(object sender, EventArgs e)
         {
-            var selectedParam = (ParamDescription)AvailableParamsLB.SelectedItem;
+            ParamDescription selectedParam = (ParamDescription)AvailableParamsLB.SelectedItem;
+
+            // do not remove separator item
+            if (!selectedParam.Name.Equals(separatorName))
+                availableParamsBs.Remove(selectedParam);
+
+            // add after selected line, if possible
+            if (ActiveParamsDGV.SelectedRows.Count > 0)
+            {
+                int index = ActiveParamsDGV.SelectedRows[0].Index;
+
+                if (index < ActiveParamsDGV.RowCount)
+                {
+                    activeParamsBs.Insert(index + 1, selectedParam);
+
+                    //select what we just added
+                    ActiveParamsDGV.Rows[index + 1].Selected = true;
+                    return;
+                }
+            }
+            // selected line is none, or last
+
 
             activeParamsBs.Add(selectedParam);
-            availableParamsBs.Remove(selectedParam);
+            //select what we just added
+            ActiveParamsDGV.Rows[ActiveParamsDGV.Rows.Count - 1].Selected = true;
         }
+
 
         private void RemBtn_Click(object sender, EventArgs e)
         {
-            var selectedParam = (ParamDescription)ActiveParamsDGV.SelectedRows[0].DataBoundItem;
+            if (ActiveParamsDGV.SelectedRows.Count == 0)
+                return;
+
+            int index = ActiveParamsDGV.SelectedRows[0].Index;
+            ParamDescription selectedParam = (ParamDescription)ActiveParamsDGV.Rows[index].DataBoundItem;
 
             availableParamsBs.Add(selectedParam);
             activeParamsBs.Remove(selectedParam);
+
+            //select next, or last item in list, to be ready to next [<-] button click
+            if (ActiveParamsDGV.Rows.Count > 0)
+                ActiveParamsDGV.Rows[Math.Min(index, ActiveParamsDGV.Rows.Count - 1)].Selected = true;
         }
 
         private void XPosSpinner_ValueChanged(object sender, EventArgs e)
@@ -394,24 +439,35 @@ namespace WtHud2
 
         private void HUDFontBtn_Click(object sender, EventArgs e)
         {
-            var dlg = new FontDialog
+            FontDialog dlg = new FontDialog
             {
                 ShowColor = true,
                 ShowEffects = true,
-                Font = hudForm.HUDLabel.Font,
-                Color = hudForm.HUDLabel.ForeColor
-            };
+                ShowApply = true,
 
-            var result = dlg.ShowDialog();
+                Font = hudForm.HUDLabel.Font,
+                Color = hudForm.HUDLabel.ForeColor,
+            };
+            dlg.Apply += Dlg_Apply;
+
+
+            DialogResult result = dlg.ShowDialog();
 
             if (result == DialogResult.OK)
-            {
-                hudForm.HUDLabel.Font = dlg.Font;
-                hudForm.HUDLabel.ForeColor = dlg.Color;
+                Dlg_Apply(dlg, e);
 
-                Properties.Settings.Default.HudTextFont = dlg.Font;
-                Properties.Settings.Default.HudTextColor = dlg.Color;
-            }
+            dlg.Dispose();
+        }
+
+        private void Dlg_Apply(object sender, EventArgs e)
+        {
+            FontDialog fd = sender as FontDialog;
+
+            hudForm.HUDLabel.Font = fd.Font;
+            hudForm.HUDLabel.ForeColor = fd.Color;
+
+            Properties.Settings.Default.HudTextFont = fd.Font;
+            Properties.Settings.Default.HudTextColor = fd.Color;
         }
 
         private void LoggingEnableChkBox_CheckedChanged(object sender, EventArgs e)
@@ -427,6 +483,36 @@ namespace WtHud2
             {
                 LogWriter.FinalizeLog();
             }
+        }
+
+        private void AvailableParamsLB_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            AddBtn_Click(sender, e);
+        }
+
+        private void HUDColorBtn_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog
+            {
+                SolidColorOnly = true,
+                Color = hudForm.HUDLabel.ForeColor,
+            };
+
+            DialogResult result = dlg.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                hudForm.HUDLabel.ForeColor = dlg.Color;
+                Properties.Settings.Default.HudTextColor = dlg.Color;
+            }
+        }
+
+        private void OpenFolderBtn_Click(object sender, EventArgs e)
+        {
+            string exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string path = Path.Combine(exeDir, "configs");
+
+            System.Diagnostics.Process.Start(path);
         }
 
         #endregion
