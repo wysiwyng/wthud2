@@ -302,7 +302,7 @@
             // OpenFolderBtn
             // 
             this.OpenFolderBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.OpenFolderBtn.Location = new System.Drawing.Point(167, 471);
+            this.OpenFolderBtn.Location = new System.Drawing.Point(162, 471);
             this.OpenFolderBtn.Margin = new System.Windows.Forms.Padding(2);
             this.OpenFolderBtn.Name = "OpenFolderBtn";
             this.OpenFolderBtn.Size = new System.Drawing.Size(75, 23);
@@ -370,11 +370,11 @@
             // 
             // MoreColorsBtn
             // 
-            this.MoreColorsBtn.Location = new System.Drawing.Point(124, 65);
+            this.MoreColorsBtn.Location = new System.Drawing.Point(101, 65);
             this.MoreColorsBtn.Name = "MoreColorsBtn";
-            this.MoreColorsBtn.Size = new System.Drawing.Size(73, 23);
+            this.MoreColorsBtn.Size = new System.Drawing.Size(90, 23);
             this.MoreColorsBtn.TabIndex = 10;
-            this.MoreColorsBtn.Text = "More colors";
+            this.MoreColorsBtn.Text = "HUD Color...";
             this.MoreColorsBtn.UseVisualStyleBackColor = true;
             this.MoreColorsBtn.Click += new System.EventHandler(this.HUDColorBtn_Click);
             // 
@@ -382,9 +382,9 @@
             // 
             this.HUDFontBtn.Location = new System.Drawing.Point(5, 65);
             this.HUDFontBtn.Name = "HUDFontBtn";
-            this.HUDFontBtn.Size = new System.Drawing.Size(117, 23);
+            this.HUDFontBtn.Size = new System.Drawing.Size(90, 23);
             this.HUDFontBtn.TabIndex = 9;
-            this.HUDFontBtn.Text = "Change HUD Font";
+            this.HUDFontBtn.Text = "HUD Font...";
             this.HUDFontBtn.UseVisualStyleBackColor = true;
             this.HUDFontBtn.Click += new System.EventHandler(this.HUDFontBtn_Click);
             // 
