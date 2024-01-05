@@ -258,7 +258,11 @@ namespace WtHud2
             {
                 if (availableParamsBs.Contains(item))
                 {
-                    availableParamsBs.Remove(item);
+                    if (item.Name != separatorName)
+                    {
+                        availableParamsBs.Remove(item);
+                    }
+
                     activeParamsBs.Add(item);
                 }
             }
